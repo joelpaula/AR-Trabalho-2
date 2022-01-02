@@ -6,10 +6,19 @@ author:
 - Joel Paula, 93392
 date: "03/01/2022"
 output:
-  html_document:
+  html_document: 
     keep_md: yes
-  word_document: default
-  pdf_document: default
+    fig_width: 16
+    fig_height: 9
+  pdf_document: 
+    fig_width: 16
+    fig_height: 9
+  word_document: 
+    fig_width: 16
+    fig_height: 9
+  html_notebook: 
+    fig_width: 16
+    fig_height: 9
 subtitle: 'Ciência de Dados - PL - 3º ano | Professora: Maria João Frazão Lopes'
 header-includes:
 - \usepackage[sfdefault]{roboto}

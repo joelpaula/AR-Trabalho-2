@@ -6,10 +6,19 @@ author:
 - Joel Paula, 93392
 date: "03/01/2022"
 output:
-  html_document:
+  html_document: 
     keep_md: yes
-  word_document: default
-  pdf_document: default
+    fig_width: 16
+    fig_height: 9
+  pdf_document: 
+    fig_width: 16
+    fig_height: 9
+  word_document: 
+    fig_width: 16
+    fig_height: 9
+  html_notebook: 
+    fig_width: 16
+    fig_height: 9
 subtitle: 'Ciência de Dados - PL - 3º ano | Professora: Maria João Frazão Lopes'
 header-includes:
 - \usepackage[sfdefault]{roboto}
@@ -37,10 +46,18 @@ library(igraph)
 
 O grau médio seria de aproximadamente 100, se todos os nodos estivessem ligados entre si. Neste caso teremos uma probabilidade de 4% - que cada nodo esteja ligado apenas a 4 dos 100 nodos.
 
-```{r}
+```{r dpi=300}
 set.seed(42)
 graph1 <- sample_gnp(100, 0.04)
-plot(graph1, )
+par(mar=c(0,0,0,0))
+plot(graph1, edge.color="orange4"
+     , edge.width=2
+     , vertex.label=NA
+     , vertex.size=5
+     , vertex.label.cex=0.8
+     , vertex.frame.color="orange"
+     , vertex.color = "orange"
+     )
 ```
 
 
