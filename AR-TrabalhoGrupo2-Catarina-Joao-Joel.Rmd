@@ -46,7 +46,20 @@ library(igraph)
 
 O grau médio seria de aproximadamente 100, se todos os nodos estivessem ligados entre si. Neste caso teremos uma probabilidade de 4% - que cada nodo esteja ligado apenas a 4 dos 100 nodos.
 
+<<<<<<< HEAD
 ```{r dpi=300}
+=======
+(SUGESTAO:) 
+É possível determinar o grau médio de uma rede conhecendo o número de nodos e a probabilidade de geração utilizada:
+<k> = p(N-1)
+Isto significa que, resolvendo a equação em função de p, temos:
+p = <k> / (N-1)
+No nosso caso concreto, o objectivo é obtermos <k> = 4, tendo N=100. Logo, a probabilidade que deverá ser usada na geração da rede aleatória é:
+p = 4/(100-1) <=> p = 4/99 = 0.04 (aprox.)
+Ou seja, para obtermos uma rede aletória de 100 nodos e um grau médio de 4, deveremos usar uma probabilidade de 4% na geração das suas ligações.
+
+```{r}
+>>>>>>> fa233701ea986702a086f40757da9e78a01b851c
 set.seed(42)
 graph1 <- sample_gnp(100, 0.04)
 par(mar=c(0,0,0,0))
