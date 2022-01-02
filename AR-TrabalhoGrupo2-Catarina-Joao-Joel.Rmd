@@ -224,6 +224,23 @@ for (i in 1:91) {
 ```
 
 > Qual o método utilizado nesta geração? Justifique. 
+> 
+O método utilizado nesta geração é o Modelo do Passeio Aleatório.
+Neste método, começamos a criação de uma rede aleatória a partir de uma sub-rede pequena: no programa temos uma subrede conexa composta por 9 nodos, com a representação abaixo: 
+
+```
+plot(graph(edge=c(1,2,1,3,2,3,3,4,3,5,4,5,5,6,5,7,6,7,7,8,7,9,8,9,2,4,4,6,6,8),directed=F))
+```
+
+Na prática, a rede gerada pelo programa contém já os 100 nodos que se pretende utilizar, mas os restantes 91 não têm na fase inicial ainda qualquer ligação. Com a construção da rede aleatória eles serão iterativamente adicionados.
+Em cada iteração, ou seja, por cada um dos 91 nodos que serão adicionados à subrede conexa já existente, temos:
+- o método selecciona aleatoriamente a partir de uma distribuição uniforme um dos nodos da subrede ("new"), e identifica quais os respectivos nodos adjacentes. Cria entretando uma ligação entre o nodo seleccionado e o próximo a ser integrado na sub-rede (ou seja, um nodo do subconjunto que têm grau zero; na primeira iteração, por exemplo, cria uma nova ligação entre o nodo 10 e um dos da subrede conexa);
+- é gerado um número aleatório que dita uma probabilidade (p = 0.75 e q = 0.25), que é usada da seguinte forma:
+  - se obtivermos p, então é criada mais uma ligação entre o novo nodo e um dos adjacentes de "new" (já identificado no início da iteração);
+  - se obtivermos q (1-p), então é criada mais uma ligação entre o novo nodo e um dos já pertencentes à subrede conexa, seleccionado aleatoriamente a partir de uma distribuição uniforme;
+Este método termina quando todos os 91 nodos tiverem sido adicionados à rede através da criação das ligações.
+Este é um método de geração de redes aleatórias que não escolhe os nodos adjacentes com base no seu grau. Esta escolha é aleatória.
+
 
 > Caracterize esta rede quanto ao grau médio dos nodos, à conectividade, distância média e existência de triângulos. Aplique ainda métodos de identificação de comunidades. 
 
