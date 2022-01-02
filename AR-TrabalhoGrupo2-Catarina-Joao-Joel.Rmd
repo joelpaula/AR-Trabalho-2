@@ -6,17 +6,14 @@ author:
 - Joel Paula, 93392
 date: "03/01/2022"
 output:
-  pdf_document: 
-    fig_width: 16
-    fig_height: 9
   html_document: 
     keep_md: yes
     fig_width: 16
     fig_height: 9
-  word_document: 
+  pdf_document: 
     fig_width: 16
     fig_height: 9
-  html_notebook: 
+  word_document: 
     fig_width: 16
     fig_height: 9
 subtitle: 'Ciência de Dados - PL - 3º ano | Professora: Maria João Frazão Lopes'
@@ -145,7 +142,60 @@ transitivity(graph1, type="global")
 
 ## Identificação de comunidades
 
-TODO
+Usando o método do corte mínimo:
+
+```{r}
+min_cut(graph1, value.only = F)
+```
+
+Temos um conjunto com os nodos ligados (a componente gigante) e um outro com os nodos sem qualquer ligação. Com um corte de dimensão zero.
+
+Usando o método das cliques:
+
+```{r}
+sapply(cliques(graph1),length)
+
+```
+
+As cliques parecem fazer divisões muito pequenas, de 1, 2 ou 3 nodos. Sendo que as maiores cliques têm 3 nodos.
+
+```{r}
+largest_cliques(graph1)
+```
+
+
+```{r}
+show.cluster <- function(g1, cl) {
+  plot(cl, g1)
+  print(c("Número de clusters:", length(cl)))
+  print("Tamanho dos clusters:")
+  print(sizes(cl))
+  print(c("modularidade:", modularity(cl)))
+  print("Pertença a clusters:")
+  membership(cl)
+}
+```
+
+Verificando  o método da remoção de pontes:
+
+```{r}
+show.cluster(graph1, cluster_edge_betweenness(graph1))
+```
+Usando o método de propagação de etiquetas:
+
+```{r}
+set.seed(42)
+show.cluster(graph1, cluster_label_prop(graph1))
+```
+/!\ Cada vez que corro dá diferentes clusters. Coloquei o `set.seed(42)` para estabilizar numa solução.
+
+Usando o método da otimização de modularidade:
+
+```{r}
+show.cluster(graph1, cluster_fast_greedy(graph1))
+```
+
+
 
 # QUESTÃO 2:
 
@@ -156,20 +206,20 @@ rn2 <- graph(edge=c(1,2,1,3,2,3,3,4,3,5,4,5,5,6,5,7,6,7,7,8,7,9,8,9,2,4,4,6,6,8)
 x = 9;
 y = 15;
 for (i in 1:91) {
-  new<-floor(runif(1,min=1,max=x));
-  nn<-neighbors(rn2,new);
-  x=x+1;
-  y=y+1;
-  rn2<-add_edges(rn2,c(new,x));
-  newr<-runif(1);
-  y=y+1;
-  if (newr<0.75) {
+  new <- floor(runif(1,min=1,max=x));
+  nn <- neighbors(rn2,new);
+  x = x+1;
+  y = y+1;
+  rn2 <- add_edges(rn2,c(new,x));
+  newr <- runif(1);
+  y = y+1;
+  if (newr < 0.75) {
     new1 <- floor(runif(1,min=1,max=degree(rn2,new,mode="all")));
-    rn2<-add_edges(rn2,c(x,nn[new1]))}
+    rn2 <- add_edges(rn2,c(x,nn[new1]))}
   else {
-    new2<-new; 
+    new2 <- new; 
     while (new==new2) new2<-floor(runif(1,min=1,max=x-1));
-    rn2<-add_edges(rn2,c(new2,x))};
+    rn2 <- add_edges(rn2,c(new2,x))};
 }
 ```
 

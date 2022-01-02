@@ -16,9 +16,6 @@ output:
   word_document: 
     fig_width: 16
     fig_height: 9
-  html_notebook: 
-    fig_width: 16
-    fig_height: 9
 subtitle: 'Ciência de Dados - PL - 3º ano | Professora: Maria João Frazão Lopes'
 header-includes:
 - \usepackage[sfdefault]{roboto}
@@ -202,7 +199,189 @@ transitivity(graph1, type="global")
 
 ## Identificação de comunidades
 
-TODO
+Usando o método do corte mínimo:
+
+
+```r
+min_cut(graph1, value.only = F)
+```
+
+```
+## $value
+## [1] 0
+## 
+## $cut
+## + 0/188 edges from 44656de:
+## 
+## $partition1
+## + 96/100 vertices, from 44656de:
+##  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19
+## [20]  20  21  22  23  24  25  26  28  29  30  31  32  33  34  35  36  37  38  41
+## [39]  42  43  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61
+## [58]  62  63  64  65  66  67  68  69  70  71  72  73  74  75  76  77  78  79  80
+## [77]  81  82  83  84  85  86  87  88  89  90  91  92  93  94  95  96  97  98  99
+## [96] 100
+## 
+## $partition2
+## + 4/100 vertices, from 44656de:
+## [1] 27 39 40 44
+```
+
+Temos um conjunto com os nodos ligados (a componente gigante) e um outro com os nodos sem qualquer ligação. Com um corte de dimensão zero.
+
+Usando o método das cliques:
+
+
+```r
+sapply(cliques(graph1),length)
+```
+
+```
+##   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2
+##  [38] 1 2 1 2 2 1 2 1 2 2 2 1 2 2 2 2 1 2 1 2 1 2 2 1 2 1 2 1 2 2 2 2 1 2 2 1 2
+##  [75] 1 2 2 2 1 2 2 2 1 2 2 1 2 1 2 1 2 2 2 1 2 2 1 2 2 2 1 2 2 1 2 1 2 1 2 1 2
+## [112] 2 2 1 2 2 1 2 2 2 1 2 2 2 2 1 2 2 2 2 2 1 2 2 1 2 1 2 1 2 2 2 2 2 1 2 2 1
+## [149] 2 3 2 2 2 1 2 2 2 2 2 1 2 2 2 2 2 1 2 2 2 2 1 2 2 2 1 2 2 3 2 1 2 2 2 2 1
+## [186] 2 3 2 2 1 2 2 1 2 2 3 2 2 2 2 2 2 1 2 2 2 1 2 2 1 2 2 2 1 2 2 1 2 2 2 2 1
+## [223] 2 2 2 2 1 2 2 2 1 2 2 2 2 2 1 2 2 2 2 1 2 2 2 1 2 2 2 2 2 2 1 2 2 2 2 1 2
+## [260] 2 2 1 2 2 3 2 2 1 2 2 2 2 1 2 2 1 2 3 2 2 2 1 2 2 2 2 2 2 1 2 2 3 2 3 2 2
+```
+
+As cliques parecem fazer divisões muito pequenas, de 1, 2 ou 3 nodos. Sendo que as maiores cliques têm 3 nodos.
+
+
+```r
+largest_cliques(graph1)
+```
+
+```
+## [[1]]
+## + 3/100 vertices, from 44656de:
+## [1] 92 82 63
+## 
+## [[2]]
+## + 3/100 vertices, from 44656de:
+## [1] 92 82 51
+## 
+## [[3]]
+## + 3/100 vertices, from 44656de:
+## [1] 85 61 69
+## 
+## [[4]]
+## + 3/100 vertices, from 44656de:
+## [1] 85 61 60
+## 
+## [[5]]
+## + 3/100 vertices, from 44656de:
+## [1] 84 32 73
+## 
+## [[6]]
+## + 3/100 vertices, from 44656de:
+## [1] 80  6 66
+## 
+## [[7]]
+## + 3/100 vertices, from 44656de:
+## [1] 76  6 72
+## 
+## [[8]]
+## + 3/100 vertices, from 44656de:
+## [1] 59  5 36
+```
+
+
+
+```r
+show.cluster <- function(g1, cl) {
+  plot(cl, g1)
+  print(c("Número de clusters:", length(cl)))
+  print("Tamanho dos clusters:")
+  print(sizes(cl))
+  print(c("modularidade:", modularity(cl)))
+  print("Pertença a clusters:")
+  membership(cl)
+}
+```
+
+Verificando  o método da remoção de pontes:
+
+
+```r
+show.cluster(graph1, cluster_edge_betweenness(graph1))
+```
+
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+
+```
+## [1] "Número de clusters:" "15"                 
+## [1] "Tamanho dos clusters:"
+## Community sizes
+##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 
+## 20 14 11  9  5 16  8  2  2  5  1  1  1  1  4 
+## [1] "modularidade:"     "0.473276935264826"
+## [1] "Pertença a clusters:"
+```
+
+```
+##   [1]  1  1  2  2  1  3  1  2  4  1  1  3  5  6  6  1  7  8  4  1  9  2  3  3 10
+##  [26]  2 11  3 10  1 10  1 10  4  6  1  7  1 12 13 10  1  2 14  7  4  1  7  4  4
+##  [51]  6  6  4  2 15 15  2  7  1  1  5 15  6  2  3  3  2  6  5  3  4  2  1  4  8
+##  [76]  7  3  6  7  3  3  6  6  1  5  6  6  6  9  6 15  6  5  7  1  2  1  2  6  2
+```
+Usando o método de propagação de etiquetas:
+
+
+```r
+set.seed(42)
+show.cluster(graph1, cluster_label_prop(graph1))
+```
+
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+
+```
+## [1] "Número de clusters:" "10"                 
+## [1] "Tamanho dos clusters:"
+## Community sizes
+##  1  2  3  4  5  6  7  8  9 10 
+## 16 18 45 11  5  1  1  1  1  1 
+## [1] "modularidade:"     "0.391381846989588"
+## [1] "Pertença a clusters:"
+```
+
+```
+##   [1]  1  1  2  3  1  3  1  2  3  3  4  2  4  2  2  1  4  2  3  1  3  3  3  3  5
+##  [26]  2  6  3  5  1  5  1  5  3  3  1  3  4  7  8  5  1  3  9  3  3 10  3  1  3
+##  [51]  2  3  1  2  3  2  3  3  1  4  4  3  2  3  2  3  3  3  4  3  3  3  1  3  2
+##  [76]  3  4  3  3  3  4  2  3  1  4  3  3  2  3  2  3  2  2  3  4  3  1  3  3  3
+```
+/!\ Cada vez que corro dá diferentes clusters. Coloquei o `set.seed(42)` para estabilizar numa solução.
+
+Usando o método da otimização de modularidade:
+
+
+```r
+show.cluster(graph1, cluster_fast_greedy(graph1))
+```
+
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+
+```
+## [1] "Número de clusters:" "14"                 
+## [1] "Tamanho dos clusters:"
+## Community sizes
+##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 
+## 13 12 11 10  8  6 13  6 12  5  1  1  1  1 
+## [1] "modularidade:"     "0.473970122227252"
+## [1] "Pertença a clusters:"
+```
+
+```
+##   [1]  4  2 10  7  2  1  4  7  6  9  9  1  1  5  5  3  9  2  9  2  2  7  1  1  4
+##  [26]  7 11  1  4  1  4  3  4  6  8  2  3  9 12 13  4  3  7 14  8  6  4  9  2  6
+##  [51] 10  8  2  7  2  5  7  9  2  9  9  5 10  7  5  9  7  5  9  3  6  1  3  6  2
+##  [76]  3  1  8  3  1  1 10  8  3  9  5  8  1  2  1  5 10  7  3  4  7  4  7  3  7
+```
+
+
 
 # QUESTÃO 2:
 
@@ -214,20 +393,20 @@ rn2 <- graph(edge=c(1,2,1,3,2,3,3,4,3,5,4,5,5,6,5,7,6,7,7,8,7,9,8,9,2,4,4,6,6,8)
 x = 9;
 y = 15;
 for (i in 1:91) {
-  new<-floor(runif(1,min=1,max=x));
-  nn<-neighbors(rn2,new);
-  x=x+1;
-  y=y+1;
-  rn2<-add_edges(rn2,c(new,x));
-  newr<-runif(1);
-  y=y+1;
-  if (newr<0.75) {
+  new <- floor(runif(1,min=1,max=x));
+  nn <- neighbors(rn2,new);
+  x = x+1;
+  y = y+1;
+  rn2 <- add_edges(rn2,c(new,x));
+  newr <- runif(1);
+  y = y+1;
+  if (newr < 0.75) {
     new1 <- floor(runif(1,min=1,max=degree(rn2,new,mode="all")));
-    rn2<-add_edges(rn2,c(x,nn[new1]))}
+    rn2 <- add_edges(rn2,c(x,nn[new1]))}
   else {
-    new2<-new; 
+    new2 <- new; 
     while (new==new2) new2<-floor(runif(1,min=1,max=x-1));
-    rn2<-add_edges(rn2,c(new2,x))};
+    rn2 <- add_edges(rn2,c(new2,x))};
 }
 ```
 
