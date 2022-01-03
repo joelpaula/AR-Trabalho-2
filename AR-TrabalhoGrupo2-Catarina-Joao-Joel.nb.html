@@ -1786,17 +1786,21 @@ pre code {
 <p>Ou seja, para obtermos uma rede aletória de 100 nodos e um grau médio de 4, deveremos usar uma probabilidade de 4% na geração das suas ligações.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0LnNlZWQoNDIpXG5ncmFwaDEgPC0gc2FtcGxlX2ducCgxMDAsIDAuMDQpXG5wYXIobWFyPWMoMCwwLDAsMCkpXG5wbG90KGdyYXBoMSwgZWRnZS5jb2xvcj1cIm9yYW5nZTRcIlxuICAgICAsIGVkZ2Uud2lkdGg9MlxuICAgICAsIHZlcnRleC5sYWJlbD1OQVxuICAgICAsIHZlcnRleC5zaXplPTVcbiAgICAgLCB2ZXJ0ZXgubGFiZWwuY2V4PTAuOFxuICAgICAsIHZlcnRleC5mcmFtZS5jb2xvcj1cIm9yYW5nZVwiXG4gICAgICwgdmVydGV4LmNvbG9yID0gXCJvcmFuZ2VcIlxuICAgICApXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0LnNlZWQoNDIpXG5ncmFwaDEgPC0gc2FtcGxlX2ducCgxMDAsIDAuMDQpXG5kZWdyZWVzIDwtIGRlZ3JlZShncmFwaDEsIG1vZGU9XCJhbGxcIilcbnBhcihtYXI9YygwLDAsMSwwKSlcbiMgR3LDoWZpY28gY29tIGdyYXVcbnBsb3QoZ3JhcGgxLCAgdmVydGV4LnNpemU9MytkZWdyZWVzKjIsIGVkZ2UuY29sb3I9XCJvcmFuZ2U0XCJcbiAgICAgLCBlZGdlLndpZHRoPTJcbiAgICAgLCB2ZXJ0ZXgubGFiZWw9ZGVncmVlc1xuICAgICAsIHZlcnRleC5sYWJlbC5jZXg9MC43NVxuICAgICAsIHZlcnRleC5sYWJlbC5jb2xvcj1cImJsYWNrXCJcbiAgICAgLCB2ZXJ0ZXgubGFiZWwuZmFtaWx5PVwic2Fuc1wiXG4gICAgICwgdmVydGV4LmZyYW1lLmNvbG9yPVwib3JhbmdlXCJcbiAgICAgLCB2ZXJ0ZXguY29sb3IgPSBcIm9yYW5nZVwiXG4gICAgICwgbWFpbj1cIlJlZGUgYWxlYXTDs3JpYSByZXByZXNlbnRhbmRvIG9zIGdyYXVzIGRvcyBub2Rvc1wiXG4gICAgIClcbmBgYCJ9 -->
 <pre class="r"><code>set.seed(42)
 graph1 &lt;- sample_gnp(100, 0.04)
-par(mar=c(0,0,0,0))
-plot(graph1, edge.color=&quot;orange4&quot;
+degrees &lt;- degree(graph1, mode=&quot;all&quot;)
+par(mar=c(0,0,1,0))
+# Gráfico com grau
+plot(graph1,  vertex.size=3+degrees*2, edge.color=&quot;orange4&quot;
      , edge.width=2
-     , vertex.label=NA
-     , vertex.size=5
-     , vertex.label.cex=0.8
+     , vertex.label=degrees
+     , vertex.label.cex=0.75
+     , vertex.label.color=&quot;black&quot;
+     , vertex.label.family=&quot;sans&quot;
      , vertex.frame.color=&quot;orange&quot;
      , vertex.color = &quot;orange&quot;
+     , main=&quot;Rede aleatória representando os graus dos nodos&quot;
      )</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
@@ -1805,7 +1809,7 @@ plot(graph1, edge.color=&quot;orange4&quot;
 <p>Caracterize esta rede quanto ao grau médio dos nodos, à conectividade, distância média e existência de triângulos. Aplique ainda métodos de identificação de comunidades.</p>
 </blockquote>
 <div id="grau-médio" class="section level2">
-<h2>grau médio</h2>
+<h2>Grau Médio</h2>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBncmF1IG3DqWRpb1xubWVhbihkZWdyZWUoZ3JhcGgxKSlcbmBgYCJ9 -->
@@ -1826,7 +1830,7 @@ mean(degree(graph1))</code></pre>
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <p>Vemos que existem 4 nodos com grau zero, o que indica que não têm qualquer ligação. Neste caso estamos perante uma rede desconexa.</p>
-<p>Portanto, existem 4 nodos e uma componente gigante.</p>
+<p>Portanto, existem 4 nodos isolados e uma componente gigante.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuY29tcG9uZW50cyhncmFwaDEpXG5gYGAifQ== -->
@@ -1897,7 +1901,7 @@ transitivity(graph1, type=&quot;global&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Temos um conjunto com os nodos ligados (a componente gigante) e um outro com os nodos sem qualquer ligação. Com um corte de dimensão zero.</p>
+<p>Temos um conjunto com os nodos ligados (a componente gigante) e um outro com os nodos isolados. Com um corte de dimensão zero.</p>
 <p>Usando o método das cliques:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1907,7 +1911,7 @@ transitivity(graph1, type=&quot;global&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>As cliques parecem fazer divisões muito pequenas, de 1, 2 ou 3 nodos. Sendo que as maiores cliques têm 3 nodos.</p>
+<p>As cliques parecem fazer divisões muito pequenas, de 1, 2 ou 3 nodos. Sendo que as maiores cliques têm 3 nodos. O número excessivo de comunidades é um dos problemas conhecidos deste algoritmo.</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGFyZ2VzdF9jbGlxdWVzKGdyYXBoMSlcbmBgYCJ9 -->
@@ -1915,11 +1919,19 @@ transitivity(graph1, type=&quot;global&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
+<p>Função que mostra dados sobre <em>clusters</em>:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2hvdy5jbHVzdGVyIDwtIGZ1bmN0aW9uKGcxLCBjbCkge1xuICBwbG90KGNsLCBnMSlcbiAgcHJpbnQoYyhcIk7Dum1lcm8gZGUgY2x1c3RlcnM6XCIsIGxlbmd0aChjbCkpKVxuICBwcmludChcIlRhbWFuaG8gZG9zIGNsdXN0ZXJzOlwiKVxuICBwcmludChzaXplcyhjbCkpXG4gIHByaW50KGMoXCJtb2R1bGFyaWRhZGU6XCIsIG1vZHVsYXJpdHkoY2wpKSlcbiAgcHJpbnQoXCJQZXJ0ZW7Dp2EgYSBjbHVzdGVyczpcIilcbiAgbWVtYmVyc2hpcChjbClcbn1cbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2hvdy5jbHVzdGVyIDwtIGZ1bmN0aW9uKGcxLCBjbCkge1xuICBwbG90KGNsLCBnMVxuICAgICAgICAgICwgZWRnZS5jb2xvcj1cIm9yYW5nZTRcIlxuICAgICAgICAgICwgZWRnZS53aWR0aD0yXG4gICAgICAgICAgLCB2ZXJ0ZXgubGFiZWwuY2V4PTAuNzVcbiAgICAgICAgICAsIHZlcnRleC5sYWJlbC5jb2xvcj1cImJsYWNrXCJcbiAgICAgICAgICAsIHZlcnRleC5sYWJlbC5mYW1pbHk9XCJzYW5zXCJcbiAgICAgICAgICAsIHZlcnRleC5mcmFtZS5jb2xvcj1cIm9yYW5nZTRcIlxuICAgICAgICAgIClcbiAgcHJpbnQoYyhcIk7Dum1lcm8gZGUgY2x1c3RlcnM6XCIsIGxlbmd0aChjbCkpKVxuICBwcmludChcIlRhbWFuaG8gZG9zIGNsdXN0ZXJzOlwiKVxuICBwcmludChzaXplcyhjbCkpXG4gIHByaW50KGMoXCJtb2R1bGFyaWRhZGU6XCIsIG1vZHVsYXJpdHkoY2wpKSlcbiAgcHJpbnQoXCJQZXJ0ZW7Dp2EgYSBjbHVzdGVyczpcIilcbiAgbWVtYmVyc2hpcChjbClcbn1cbmBgYCJ9 -->
 <pre class="r"><code>show.cluster &lt;- function(g1, cl) {
-  plot(cl, g1)
+  plot(cl, g1
+          , edge.color=&quot;orange4&quot;
+          , edge.width=2
+          , vertex.label.cex=0.75
+          , vertex.label.color=&quot;black&quot;
+          , vertex.label.family=&quot;sans&quot;
+          , vertex.frame.color=&quot;orange4&quot;
+          )
   print(c(&quot;Número de clusters:&quot;, length(cl)))
   print(&quot;Tamanho dos clusters:&quot;)
   print(sizes(cl))
@@ -1930,7 +1942,7 @@ transitivity(graph1, type=&quot;global&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Verificando o método da remoção de pontes:</p>
+<p>Verificando o método de clustering pela remoção de pontes:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2hvdy5jbHVzdGVyKGdyYXBoMSwgY2x1c3Rlcl9lZGdlX2JldHdlZW5uZXNzKGdyYXBoMSkpXG5gYGAifQ== -->
@@ -1938,7 +1950,7 @@ transitivity(graph1, type=&quot;global&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>Usando o método de propagação de etiquetas:</p>
+<p>Usando o método de clustering pela propagação de etiquetas:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
 <!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0LnNlZWQoNDIpXG5zaG93LmNsdXN0ZXIoZ3JhcGgxLCBjbHVzdGVyX2xhYmVsX3Byb3AoZ3JhcGgxKSlcbmBgYCJ9 -->
@@ -1947,7 +1959,7 @@ show.cluster(graph1, cluster_label_prop(graph1))</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
-<p>/! Cada vez que corro dá diferentes clusters. Coloquei o <code>set.seed(42)</code> para estabilizar numa solução.</p>
+<p>Usámos o <code>set.seed(42)</code> para estabilizar numa mesma solução, para análise.</p>
 <p>Usando o método da otimização de modularidade:</p>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
@@ -1965,8 +1977,11 @@ show.cluster(graph1, cluster_label_prop(graph1))</code></pre>
 </blockquote>
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxucm4yIDwtIGdyYXBoKGVkZ2U9YygxLDIsMSwzLDIsMywzLDQsMyw1LDQsNSw1LDYsNSw3LDYsNyw3LDgsNyw5LDgsOSwyLDQsNCw2LDYsOCksbj0xMDAsZGlyZWN0ZWQ9Rik7XG54ID0gOTtcbnkgPSAxNTtcbmZvciAoaSBpbiAxOjkxKSB7XG4gIG5ldyA8LSBmbG9vcihydW5pZigxLG1pbj0xLG1heD14KSk7XG4gIG5uIDwtIG5laWdoYm9ycyhybjIsbmV3KTtcbiAgeCA9IHgrMTtcbiAgeSA9IHkrMTtcbiAgcm4yIDwtIGFkZF9lZGdlcyhybjIsYyhuZXcseCkpO1xuICBuZXdyIDwtIHJ1bmlmKDEpO1xuICB5ID0geSsxO1xuICBpZiAobmV3ciA8IDAuNzUpIHtcbiAgICBuZXcxIDwtIGZsb29yKHJ1bmlmKDEsbWluPTEsbWF4PWRlZ3JlZShybjIsbmV3LG1vZGU9XCJhbGxcIikpKTtcbiAgICBybjIgPC0gYWRkX2VkZ2VzKHJuMixjKHgsbm5bbmV3MV0pKX1cbiAgZWxzZSB7XG4gICAgbmV3MiA8LSBuZXc7IFxuICAgIHdoaWxlIChuZXc9PW5ldzIpIG5ldzI8LWZsb29yKHJ1bmlmKDEsbWluPTEsbWF4PXgtMSkpO1xuICAgIHJuMiA8LSBhZGRfZWRnZXMocm4yLGMobmV3Mix4KSl9O1xufVxuYGBgIn0= -->
-<pre class="r"><code>rn2 &lt;- graph(edge=c(1,2,1,3,2,3,3,4,3,5,4,5,5,6,5,7,6,7,7,8,7,9,8,9,2,4,4,6,6,8),n=100,directed=F);
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0LnNlZWQoNDIpXG5ybjIgPC0gZ3JhcGgoZWRnZT1jKDEsMiwxLDMsMiwzLDMsNCwzLDUsNCw1LDUsNiw1LDcsNiw3LDcsOCw3LDksOCw5LDIsNCw0LDYsNiw4KVxuICAgICAgICAgICAgICxuPTEwMFxuICAgICAgICAgICAgICxkaXJlY3RlZD1GKTtcbnggPSA5O1xueSA9IDE1O1xuZm9yIChpIGluIDE6OTEpIHtcbiAgbmV3IDwtIGZsb29yKHJ1bmlmKDEsbWluPTEsbWF4PXgpKTtcbiAgbm4gPC0gbmVpZ2hib3JzKHJuMixuZXcpO1xuICB4ID0geCsxO1xuICB5ID0geSsxO1xuICBybjIgPC0gYWRkX2VkZ2VzKHJuMixjKG5ldyx4KSk7XG4gIG5ld3IgPC0gcnVuaWYoMSk7XG4gIHkgPSB5KzE7XG4gIGlmIChuZXdyIDwgMC43NSkge1xuICAgIG5ldzEgPC0gZmxvb3IocnVuaWYoMSxtaW49MSxtYXg9ZGVncmVlKHJuMixuZXcsbW9kZT1cImFsbFwiKSkpO1xuICAgIHJuMiA8LSBhZGRfZWRnZXMocm4yLGMoeCxubltuZXcxXSkpfVxuICBlbHNlIHtcbiAgICBuZXcyIDwtIG5ldzsgXG4gICAgd2hpbGUgKG5ldz09bmV3MikgbmV3MjwtZmxvb3IocnVuaWYoMSxtaW49MSxtYXg9eC0xKSk7XG4gICAgcm4yIDwtIGFkZF9lZGdlcyhybjIsYyhuZXcyLHgpKX07XG59XG5gYGAifQ== -->
+<pre class="r"><code>set.seed(42)
+rn2 &lt;- graph(edge=c(1,2,1,3,2,3,3,4,3,5,4,5,5,6,5,7,6,7,7,8,7,9,8,9,2,4,4,6,6,8)
+             ,n=100
+             ,directed=F);
 x = 9;
 y = 15;
 for (i in 1:91) {
@@ -1991,19 +2006,199 @@ for (i in 1:91) {
 <blockquote>
 <p>Qual o método utilizado nesta geração? Justifique.</p>
 </blockquote>
+<p>O método utilizado nesta geração é o Modelo do Passeio Aleatório. Neste método, começamos a criação de uma rede aleatória a partir de uma pequena sub-rede - no programa temos uma subrede conexa composta por 9 nodos, com a representação abaixo:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0LnNlZWQoNDIpXG5wbG90KGdyYXBoKGVkZ2U9YygxLDIsMSwzLDIsMywzLDQsMyw1LDQsNSw1LDYsNSw3LDYsNyw3LDgsNyw5LDgsOSwyLDQsNCw2LDYsOCksZGlyZWN0ZWQ9RilcbiAgICAgLCBlZGdlLmNvbG9yPVwib3JhbmdlNFwiXG4gICAgICwgZWRnZS53aWR0aD0yXG4gICAgICwgdmVydGV4LmxhYmVsLmNvbG9yPVwiYmxhY2tcIlxuICAgICAsIHZlcnRleC5sYWJlbC5mYW1pbHk9XCJzYW5zXCJcbiAgICAgLCB2ZXJ0ZXguZnJhbWUuY29sb3I9XCJvcmFuZ2VcIlxuICAgICAsIHZlcnRleC5jb2xvciA9IFwib3JhbmdlXCJcbiAgICAgLCBtYWluPVwiU3ViLXJlZGUgY29uZWN0YWRhLCBkZSBwYXJ0aWRhXCIpXG5gYGAifQ== -->
+<pre class="r"><code>set.seed(42)
+plot(graph(edge=c(1,2,1,3,2,3,3,4,3,5,4,5,5,6,5,7,6,7,7,8,7,9,8,9,2,4,4,6,6,8),directed=F)
+     , edge.color=&quot;orange4&quot;
+     , edge.width=2
+     , vertex.label.color=&quot;black&quot;
+     , vertex.label.family=&quot;sans&quot;
+     , vertex.frame.color=&quot;orange&quot;
+     , vertex.color = &quot;orange&quot;
+     , main=&quot;Sub-rede conectada, de partida&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Na prática, a rede gerada pelo programa contém já os 100 nodos que se pretende utilizar, mas os restantes 91 não têm, na fase inicial, ainda qualquer ligação. Com a construção da rede aleatória eles serão iterativamente adicionados. Em cada iteração, ou seja, por cada um dos 91 nodos que serão adicionados à subrede conexa já existente, temos:</p>
+<ul>
+<li><p>o método selecciona aleatoriamente a partir de uma distribuição uniforme um dos nodos da subrede (“new”), e identifica quais os respectivos nodos adjacentes. Cria entretanto uma ligação entre o nodo seleccionado e o próximo a ser integrado na sub-rede (ou seja, um nodo do subconjunto que têm grau zero; na primeira iteração, por exemplo, cria uma nova ligação entre o nodo 10 e um dos da subrede conexa);</p></li>
+<li><p>é gerado um número aleatório que dita uma probabilidade (p = 0.75 e q = 0.25), que é usada da seguinte forma:</p>
+<ul>
+<li><p>se obtivermos p (com probabilidade de 75%), então é criada mais uma ligação entre o novo nodo e um dos adjacentes de “new” (já identificado no início da iteração) - criando um triângulo;</p></li>
+<li><p>se obtivermos q (1-p), então é criada mais uma ligação entre o novo nodo e um dos já pertencentes à subrede conexa, seleccionado aleatoriamente a partir de uma distribuição uniforme;</p></li>
+</ul></li>
+</ul>
+<p>Este método termina quando todos os 91 nodos tiverem sido adicionados à rede através da criação das ligações.</p>
+<p>Este é um método de geração de redes aleatórias que não escolhe os nodos adjacentes com base no seu grau. Esta escolha é aleatória.</p>
 <blockquote>
 <p>Caracterize esta rede quanto ao grau médio dos nodos, à conectividade, distância média e existência de triângulos. Aplique ainda métodos de identificação de comunidades.</p>
 </blockquote>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0LnNlZWQoNDIpXG5kZWdyZWVzIDwtIGRlZ3JlZShybjIsIG1vZGU9XCJhbGxcIilcbnBhcihtYXI9YygwLDAsMSwwKSlcbiMgR3LDoWZpY28gY29tIGdyYXVcbnBsb3Qocm4yLCAgdmVydGV4LnNpemU9ZGVncmVlcyoyLCBlZGdlLmNvbG9yPVwib3JhbmdlNFwiXG4gICAgICwgZWRnZS53aWR0aD0yXG4gICAgICwgdmVydGV4LmxhYmVsPWRlZ3JlZXNcbiAgICAgLCB2ZXJ0ZXgubGFiZWwuY2V4PTAuNzVcbiAgICAgLCB2ZXJ0ZXgubGFiZWwuY29sb3I9XCJibGFja1wiXG4gICAgICwgdmVydGV4LmxhYmVsLmZhbWlseT1cInNhbnNcIlxuICAgICAsIHZlcnRleC5mcmFtZS5jb2xvcj1cIm9yYW5nZVwiXG4gICAgICwgdmVydGV4LmNvbG9yID0gXCJvcmFuZ2VcIlxuICAgICAsIG1haW49XCJSZWRlIGFsZWF0w7NyaWEgMiByZXByZXNlbnRhbmRvIG9zIGdyYXVzIGRvcyBub2Rvc1wiXG4gICAgIClcbmBgYCJ9 -->
+<pre class="r"><code>set.seed(42)
+degrees &lt;- degree(rn2, mode=&quot;all&quot;)
+par(mar=c(0,0,1,0))
+# Gráfico com grau
+plot(rn2,  vertex.size=degrees*2, edge.color=&quot;orange4&quot;
+     , edge.width=2
+     , vertex.label=degrees
+     , vertex.label.cex=0.75
+     , vertex.label.color=&quot;black&quot;
+     , vertex.label.family=&quot;sans&quot;
+     , vertex.frame.color=&quot;orange&quot;
+     , vertex.color = &quot;orange&quot;
+     , main=&quot;Rede aleatória 2 representando os graus dos nodos&quot;
+     )</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBHcmF1IG3DqWRpb1xubWVhbihkZWdyZWUocm4yKSlcbmBgYCJ9 -->
+<pre class="r"><code># Grau médio
+mean(degree(rn2))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>O grau médio é próximo de 4, em semelhança à primeira rede.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBDb25lY3RpdmlkYWRlXG5kZWdyZWUocm4yKVxuYGBgIn0= -->
+<pre class="r"><code># Conectividade
+degree(rn2)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Não existem nodos com grau igual a 0, o que quer dizer que existe um caminho entre qualquer par de nodos. Neste caso estamos perante uma rede conexa.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBBc3NvY2lhw6fDo28gZGUgZ3JhdVxuYXNzb3J0YXRpdml0eV9kZWdyZWUocm4yKSBcbmBgYCJ9 -->
+<pre class="r"><code># Associação de grau
+assortativity_degree(rn2) </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>É muito próximo de zero, por isso não é um rede associativa mas também não se pode concluir que é Não associativa.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxua25uKHJuMikka25ua1xuYGBgIn0= -->
+<pre class="r"><code>knn(rn2)$knnk</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBEaXN0w6JuY2lhIG3DqWRpYVxubWVhbl9kaXN0YW5jZShybjIpXG5gYGAifQ== -->
+<pre class="r"><code># Distância média
+mean_distance(rn2)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubG9nMTAoMTAwKVxuYGBgIn0= -->
+<pre class="r"><code>log10(100)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>A distância média é grande, já que se afasta substancialmente de <span class="math inline">\(log10(N)\)</span>.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBEacOibWV0cm9cbmRpYW1ldGVyKHJuMilcbmBgYCJ9 -->
+<pre class="r"><code># Diâmetro
+diameter(rn2)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>A maior distância entre nodos (conectados) é de 7.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuIyBFeGlzdMOqbmNpYSBkZSB0cmnDom5ndWxvc1xudHJhbnNpdGl2aXR5KHJuMiwgdHlwZSA9IFwiZ2xvYmFsXCIpXG5gYGAifQ== -->
+<pre class="r"><code># Existência de triângulos
+transitivity(rn2, type = &quot;global&quot;)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>O rácio é bastante superior a zero, embora não se aproxime de 1 - revela a existência de bastantes triângulos.</p>
+<div id="identificação-de-comunidades-1" class="section level2">
+<h2>Identificação de comunidades</h2>
+<p>Usando o método do corte mínimo:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0LnNlZWQoNDIpXG5taW5fY3V0KHJuMiwgdmFsdWUub25seSA9IEYpXG5gYGAifQ== -->
+<pre class="r"><code>set.seed(42)
+min_cut(rn2, value.only = F)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Mais uma vez, este método separa a rede em dois com dimensão dois - uma componente gigante e um nodo isolado.</p>
+<p>Usando o método das cliques:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2FwcGx5KGNsaXF1ZXMocm4yKSxsZW5ndGgpXG5cbmBgYCJ9 -->
+<pre class="r"><code>sapply(cliques(rn2),length)
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>As cliques parecem fazer divisões muito pequenas, de 1, 2 ou 3 nodos. Sendo que as maiores cliques têm 3 nodos. O número excessivo de comunidades é um problema conhecido deste algoritmo.</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxubGFyZ2VzdF9jbGlxdWVzKHJuMilcbmBgYCJ9 -->
+<pre class="r"><code>largest_cliques(rn2)</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Verificando o método da remoção de pontes:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2hvdy5jbHVzdGVyKHJuMiwgY2x1c3Rlcl9lZGdlX2JldHdlZW5uZXNzKHJuMikpXG5gYGAifQ== -->
+<pre class="r"><code>show.cluster(rn2, cluster_edge_betweenness(rn2))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Usando o método de propagação de etiquetas:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2V0LnNlZWQoNDIpXG5zaG93LmNsdXN0ZXIocm4yLCBjbHVzdGVyX2xhYmVsX3Byb3Aocm4yKSlcbmBgYCJ9 -->
+<pre class="r"><code>set.seed(42)
+show.cluster(rn2, cluster_label_prop(rn2))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<p>Usámos o <code>set.seed(42)</code> para estabilizar numa mesma solução, para análise.</p>
+<p>Usando o método da otimização de modularidade:</p>
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuc2hvdy5jbHVzdGVyKHJuMiwgY2x1c3Rlcl9mYXN0X2dyZWVkeShybjIpKVxuYGBgIn0= -->
+<pre class="r"><code>show.cluster(rn2, cluster_fast_greedy(rn2))</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+</div>
 </div>
 <div id="questão-3" class="section level1">
 <h1>QUESTÃO 3:</h1>
 <blockquote>
 <p>Compare e comente os resultados obtidos nas questões anteriores.</p>
 </blockquote>
+<p>Que diferenças conseguimos observar entre a questão 1 e a 2? O que é que dá para concluir?</p>
+<ul>
+<li><p>CC sobre a associação de grau</p></li>
+<li><p>CC sobre a distância média</p></li>
+<li><p>CC sobre o diâmetro</p></li>
+<li><p>CC sobre a existência de triângulos</p></li>
+<li><p>JP sobre as comunidades</p></li>
+<li><p>JM o impacto que o método <em>random walk</em> tem na construção de uma rede aleatória; vantagens e desvantagens dos métodos usados em 1 e 2</p></li>
+</ul>
 <!-- rnb-text-end -->
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFuw6FsaXNlIGRlIFJlZGVzIC0gVHJhYmFsaG8gZGUgR3J1cG8gbi7CuiAyIg0KYXV0aG9yOg0KLSBDYXRhcmluYSBDYXN0YW5oZWlyYSwgOTI0NzgNCi0gSm/Do28gTWFydGlucywgOTMyNTkNCi0gSm9lbCBQYXVsYSwgOTMzOTINCmRhdGU6ICIwMy8wMS8yMDIyIg0Kb3V0cHV0Og0KICBodG1sX2RvY3VtZW50OiANCiAgICBrZWVwX21kOiB5ZXMNCiAgICBmaWdfd2lkdGg6IDE2DQogICAgZmlnX2hlaWdodDogOQ0KICBwZGZfZG9jdW1lbnQ6IA0KICAgIGZpZ193aWR0aDogMTYNCiAgICBmaWdfaGVpZ2h0OiA5DQogIHdvcmRfZG9jdW1lbnQ6IA0KICAgIGZpZ193aWR0aDogMTYNCiAgICBmaWdfaGVpZ2h0OiA5DQpzdWJ0aXRsZTogJ0Npw6puY2lhIGRlIERhZG9zIC0gUEwgLSAzwrogYW5vIHwgUHJvZmVzc29yYTogTWFyaWEgSm/Do28gRnJhesOjbyBMb3BlcycNCmhlYWRlci1pbmNsdWRlczoNCi0gXHVzZXBhY2thZ2Vbc2ZkZWZhdWx0XXtyb2JvdG99DQotIFxyZW5ld2NvbW1hbmR7XGZhbWlseWRlZmF1bHR9e1xzZmRlZmF1bHR9DQotIFx1c2VwYWNrYWdle3RpdGxpbmd9DQotIFxwcmV0aXRsZXtccGFyXHZzcGFjZXs1MG1tfVxiZWdpbntjZW50ZXJ9DQotIFxwb3N0dGl0bGV7XHBhclx2c3BhY2V7MTAwbW19XGVuZHtjZW50ZXJ9fSBcaW5jbHVkZWdyYXBoaWNzW3dpZHRoPTJpbixoZWlnaHQ9MmluXXtyZ2JfaXNjdGVfcHRfaG9yaXpvbnRhbF9wb3NpdGl2ZS5wbmd9XExBUkdFXFx9DQotIFx1c2VwYWNrYWdle2NhcHRpb259DQotIFxjYXB0aW9uc2V0dXBbdGFibGVde2xhYmVsZm9ybWF0PWVtcHR5fQ0KLSBcY2FwdGlvbnNldHVwW2ZpZ3VyZV17bGFiZWxmb3JtYXQ9ZW1wdHl9DQplZGl0b3Jfb3B0aW9uczoNCiAgbWFya2Rvd246DQogICAgd3JhcDogOTANCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmxpYnJhcnkoa25pdHIpDQpsaWJyYXJ5KGlncmFwaCkNCmBgYA0KDQojIFFVRVNUw4NPIDE6DQoNCj4gU3Vwb25oYSBxdWUgcHJldGVuZGUgZ2VyYXIgdW1hIHJlZGUgYWxlYXTDs3JpYSBuw6NvIG9yaWVudGFkYSBjb20gMTAwIG5vZG9zIGUgZ3JhdSBtw6lkaW8gIGFwcm94aW1hZGFtZW50ZSBpZ3VhbCBhIDQuIFF1YWwgZGV2ZSBzZXIgYSBwcm9iYWJpbGlkYWRlIHV0aWxpemFkYSBuYSBnZXJhw6fDo28gZGEgcmVkZT8gR2VyZSBlc3RhIHJlZGUuIA0KDQpPIGdyYXUgbcOpZGlvIHNlcmlhIGRlIGFwcm94aW1hZGFtZW50ZSAxMDAsIHNlIHRvZG9zIG9zIG5vZG9zIGVzdGl2ZXNzZW0gbGlnYWRvcyBlbnRyZSBzaS4gTmVzdGUgY2FzbyB0ZXJlbW9zIHVtYSBwcm9iYWJpbGlkYWRlIGRlIDQlIC0gcXVlIGNhZGEgbm9kbyBlc3RlamEgbGlnYWRvIGFwZW5hcyBhIDQgZG9zIDEwMCBub2Rvcy4NCg0KDQrDiSBwb3Nzw612ZWwgZGV0ZXJtaW5hciBvIGdyYXUgbcOpZGlvIGRlIHVtYSByZWRlIGNvbmhlY2VuZG8gbyBuw7ptZXJvIGRlIG5vZG9zIGUgYSBwcm9iYWJpbGlkYWRlIGRlIGdlcmHDp8OjbyB1dGlsaXphZGE6DQoNCiRcbGFuZ2xlIGtccmFuZ2xlID0gcChOLTEpJA0KDQpJc3RvIHNpZ25pZmljYSBxdWUsIHJlc29sdmVuZG8gYSBlcXVhw6fDo28gZW0gZnVuw6fDo28gZGUgcCwgdGVtb3M6DQoNCiRwID0gXGxhbmdsZSBrXHJhbmdsZSAvIChOLTEpJA0KDQpObyBub3NzbyBjYXNvIGNvbmNyZXRvLCBvIG9iamVjdGl2byDDqSBvYnRlcm1vcyAkXGxhbmdsZSBrXHJhbmdsZSA9IDQkLCB0ZW5kbyAkTj0xMDAkLiBMb2dvLCBhIHByb2JhYmlsaWRhZGUgcXVlIGRldmVyw6Egc2VyIHVzYWRhIG5hIGdlcmHDp8OjbyBkYSByZWRlIGFsZWF0w7NyaWEgw6k6DQoNCiRwID0gNC8oMTAwLTEpIFxMZWZ0cmlnaHRhcnJvdyBwID0gNC85OSA9IDAuMDQgXHRleHR7IChhcHJveC4pfSQNCg0KT3Ugc2VqYSwgcGFyYSBvYnRlcm1vcyB1bWEgcmVkZSBhbGV0w7NyaWEgZGUgMTAwIG5vZG9zIGUgdW0gZ3JhdSBtw6lkaW8gZGUgNCwgZGV2ZXJlbW9zIHVzYXIgdW1hIHByb2JhYmlsaWRhZGUgZGUgNCUgbmEgZ2VyYcOnw6NvIGRhcyBzdWFzIGxpZ2HDp8O1ZXMuDQoNCmBgYHtyfQ0Kc2V0LnNlZWQoNDIpDQpncmFwaDEgPC0gc2FtcGxlX2ducCgxMDAsIDAuMDQpDQpwYXIobWFyPWMoMCwwLDAsMCkpDQpwbG90KGdyYXBoMSwgZWRnZS5jb2xvcj0ib3JhbmdlNCINCiAgICAgLCBlZGdlLndpZHRoPTINCiAgICAgLCB2ZXJ0ZXgubGFiZWw9TkENCiAgICAgLCB2ZXJ0ZXguc2l6ZT01DQogICAgICwgdmVydGV4LmxhYmVsLmNleD0wLjgNCiAgICAgLCB2ZXJ0ZXguZnJhbWUuY29sb3I9Im9yYW5nZSINCiAgICAgLCB2ZXJ0ZXguY29sb3IgPSAib3JhbmdlIg0KICAgICApDQpgYGANCg0KDQo+IENhcmFjdGVyaXplIGVzdGEgcmVkZSBxdWFudG8gYW8gZ3JhdSBtw6lkaW8gZG9zIG5vZG9zLCDDoCBjb25lY3RpdmlkYWRlLCBkaXN0w6JuY2lhIG3DqWRpYSBlIGV4aXN0w6puY2lhIGRlIHRyacOibmd1bG9zLiBBcGxpcXVlIGFpbmRhIG3DqXRvZG9zIGRlIGlkZW50aWZpY2HDp8OjbyBkZSBjb211bmlkYWRlcy4gDQoNCiMjIGdyYXUgbcOpZGlvDQoNCmBgYHtyfQ0KIyBncmF1IG3DqWRpbw0KbWVhbihkZWdyZWUoZ3JhcGgxKSkNCmBgYA0KDQpPIGdyYXUgbcOpZGlvIMOpIHByw7N4aW1vIGRlIDQsIHRhbCBjb21vIGVzcGVyYXLDrWFtb3MuDQoNCiMjIENvbmVjdGl2aWRhZGUNCg0KYGBge3J9DQpkZWdyZWUoZ3JhcGgxKQ0KYGBgDQpWZW1vcyBxdWUgZXhpc3RlbSA0IG5vZG9zIGNvbSBncmF1IHplcm8sIG8gcXVlIGluZGljYSBxdWUgbsOjbyB0w6ptIHF1YWxxdWVyIGxpZ2HDp8Ojby4gTmVzdGUgY2FzbyBlc3RhbW9zIHBlcmFudGUgdW1hIHJlZGUgZGVzY29uZXhhLiANCg0KUG9ydGFudG8sIGV4aXN0ZW0gNCBub2RvcyBlIHVtYSBjb21wb25lbnRlIGdpZ2FudGUuDQoNCmBgYHtyfQ0KY29tcG9uZW50cyhncmFwaDEpDQpgYGANCg0KIyMgQXNzb2NpYcOnw6NvIA0KDQpgYGB7cn0NCiMgQXNzb2NpYcOnw6NvIGRlIGdyYXUNCmFzc29ydGF0aXZpdHlfZGVncmVlKGdyYXBoMSkgDQpgYGANCsOJIG5lZ2F0aXZvIG1hcyBtdWl0byBwcsOzeGltbyBkZSB6ZXJvLCBwb3IgaXNzbyBuw6NvIMOpIHVtIHJlZGUgYXNzb2NpYXRpdmEgbWFzIHRhbWLDqW0gbsOjbyBzZSBwb2RlIGNvbmNsdWlyIHF1ZSDDqSBOw6NvIGFzc29jaWF0aXZhLg0KDQpWYW1vcyBvbGhhciBhZ29yYSBwYXJhIG8gbcOpdG9kbyBkZSBtZWRpw6fDo28gZGEgYXNzb2NpYcOnw6NvIGRlIGdyYXUgY29tIGJhc2Ugbm8gDQpncmF1IG3DqWRpbyBkb3Mgbm9kb3MgYWRqYWNlbnRlczoNCg0KYGBge3J9DQprbm4oZ3JhcGgxKSRrbm5rDQoNCmBgYA0KDQpBIGZ1bsOnw6NvIHRlbSB1bWEgdGVuZMOqbmNpYSBkZWNyZXNjZW50ZSwgbWFzIG7Do28gZXN0cml0YW1lbnRlIGRlY3Jlc2NlbnRlLCBvc2NpbGFuZG8uIFBvciBpc3NvIG1hbnRlbW9zIHF1ZSBuw6NvIMOpIHVtYSByZWRlIGFzc29jaWF0aXZhIG1hcyB0YW1iw6ltIG7Do28gcG9kZSBzZXIgY2xhc3NpZmljYWRhIGNvbW8gbsOjbyBhc3NvY2lhdGl2YS4NCg0KIyMgRGlzdMOibmNpYSBtw6lkaWENCg0KYGBge3J9DQojIGRpc3TDom5jaWEgbcOpZGlhDQptZWFuX2Rpc3RhbmNlKGdyYXBoMSkNCg0KbG9nMTAoMTAwKQ0KDQojZGnDom1ldHJvDQpkaWFtZXRlcihncmFwaDEpDQpgYGANCg0KQSBkaXN0w6JuY2lhIG3DqWRpYSDDqSBncmFuZGUsIGrDoSBxdWUgc2UgYWZhc3RhIHN1YnN0YW5jaWFsbWVudGUgZGUgJGxvZzEwKE4pJC4NCg0KQSBtYWlvciBkaXN0w6JuY2lhIGVudHJlIG5vZG9zIChjb25lY3RhZG9zKSDDqSBkZSA4Lg0KDQojIyBFeGlzdMOqbmNpYSBkZSB0cmnDom5ndWxvcw0KDQpgYGB7cn0NCiMgQ29lZmljaWVudGUgZGUgY2x1c3RlcmluZw0KdHJhbnNpdGl2aXR5KGdyYXBoMSwgdHlwZT0iZ2xvYmFsIikNCmBgYA0KDQrDiSB1bSBuw7ptZXJvIGJhaXhvIGRlIHRyacOibmd1bG9zLCBqw6EgcXVlIG8gY29lZmljaWVudGUgZGUgKmNsdXN0ZXJpbmcqIMOpIHVtIHLDoWNpbyBlbnRyZSBvIG7Dum1lcm8gZGUgdHJpw6JuZ3Vsb3MgZSBvIG7Dum1lcm8gdG90YWwgZGUgdGVybm9zIGNvbmV4b3MgZSBlc3RlIMOpIGJhaXhvLg0KDQojIyBJZGVudGlmaWNhw6fDo28gZGUgY29tdW5pZGFkZXMNCg0KVXNhbmRvIG8gbcOpdG9kbyBkbyBjb3J0ZSBtw61uaW1vOg0KDQpgYGB7cn0NCm1pbl9jdXQoZ3JhcGgxLCB2YWx1ZS5vbmx5ID0gRikNCmBgYA0KDQpUZW1vcyB1bSBjb25qdW50byBjb20gb3Mgbm9kb3MgbGlnYWRvcyAoYSBjb21wb25lbnRlIGdpZ2FudGUpIGUgdW0gb3V0cm8gY29tIG9zIG5vZG9zIHNlbSBxdWFscXVlciBsaWdhw6fDo28uIENvbSB1bSBjb3J0ZSBkZSBkaW1lbnPDo28gemVyby4NCg0KVXNhbmRvIG8gbcOpdG9kbyBkYXMgY2xpcXVlczoNCg0KYGBge3J9DQpzYXBwbHkoY2xpcXVlcyhncmFwaDEpLGxlbmd0aCkNCg0KYGBgDQoNCkFzIGNsaXF1ZXMgcGFyZWNlbSBmYXplciBkaXZpc8O1ZXMgbXVpdG8gcGVxdWVuYXMsIGRlIDEsIDIgb3UgMyBub2Rvcy4gU2VuZG8gcXVlIGFzIG1haW9yZXMgY2xpcXVlcyB0w6ptIDMgbm9kb3MuDQoNCmBgYHtyfQ0KbGFyZ2VzdF9jbGlxdWVzKGdyYXBoMSkNCmBgYA0KDQoNCmBgYHtyfQ0Kc2hvdy5jbHVzdGVyIDwtIGZ1bmN0aW9uKGcxLCBjbCkgew0KICBwbG90KGNsLCBnMSkNCiAgcHJpbnQoYygiTsO6bWVybyBkZSBjbHVzdGVyczoiLCBsZW5ndGgoY2wpKSkNCiAgcHJpbnQoIlRhbWFuaG8gZG9zIGNsdXN0ZXJzOiIpDQogIHByaW50KHNpemVzKGNsKSkNCiAgcHJpbnQoYygibW9kdWxhcmlkYWRlOiIsIG1vZHVsYXJpdHkoY2wpKSkNCiAgcHJpbnQoIlBlcnRlbsOnYSBhIGNsdXN0ZXJzOiIpDQogIG1lbWJlcnNoaXAoY2wpDQp9DQpgYGANCg0KVmVyaWZpY2FuZG8gIG8gbcOpdG9kbyBkYSByZW1vw6fDo28gZGUgcG9udGVzOg0KDQpgYGB7cn0NCnNob3cuY2x1c3RlcihncmFwaDEsIGNsdXN0ZXJfZWRnZV9iZXR3ZWVubmVzcyhncmFwaDEpKQ0KYGBgDQpVc2FuZG8gbyBtw6l0b2RvIGRlIHByb3BhZ2HDp8OjbyBkZSBldGlxdWV0YXM6DQoNCmBgYHtyfQ0Kc2V0LnNlZWQoNDIpDQpzaG93LmNsdXN0ZXIoZ3JhcGgxLCBjbHVzdGVyX2xhYmVsX3Byb3AoZ3JhcGgxKSkNCmBgYA0KLyFcIENhZGEgdmV6IHF1ZSBjb3JybyBkw6EgZGlmZXJlbnRlcyBjbHVzdGVycy4gQ29sb3F1ZWkgbyBgc2V0LnNlZWQoNDIpYCBwYXJhIGVzdGFiaWxpemFyIG51bWEgc29sdcOnw6NvLg0KDQpVc2FuZG8gbyBtw6l0b2RvIGRhIG90aW1pemHDp8OjbyBkZSBtb2R1bGFyaWRhZGU6DQoNCmBgYHtyfQ0Kc2hvdy5jbHVzdGVyKGdyYXBoMSwgY2x1c3Rlcl9mYXN0X2dyZWVkeShncmFwaDEpKQ0KYGBgDQoNCg0KDQojIFFVRVNUw4NPIDI6DQoNCj4gVXRpbGl6ZSBvIHByb2dyYW1hIHNlZ3VpbnRlIHBhcmEgZ2VyYXIgYSByZWRlIGFsZWF0w7NyaWEgcm4yOiANCg0KYGBge3J9DQpybjIgPC0gZ3JhcGgoZWRnZT1jKDEsMiwxLDMsMiwzLDMsNCwzLDUsNCw1LDUsNiw1LDcsNiw3LDcsOCw3LDksOCw5LDIsNCw0LDYsNiw4KSxuPTEwMCxkaXJlY3RlZD1GKTsNCnggPSA5Ow0KeSA9IDE1Ow0KZm9yIChpIGluIDE6OTEpIHsNCiAgbmV3IDwtIGZsb29yKHJ1bmlmKDEsbWluPTEsbWF4PXgpKTsNCiAgbm4gPC0gbmVpZ2hib3JzKHJuMixuZXcpOw0KICB4ID0geCsxOw0KICB5ID0geSsxOw0KICBybjIgPC0gYWRkX2VkZ2VzKHJuMixjKG5ldyx4KSk7DQogIG5ld3IgPC0gcnVuaWYoMSk7DQogIHkgPSB5KzE7DQogIGlmIChuZXdyIDwgMC43NSkgew0KICAgIG5ldzEgPC0gZmxvb3IocnVuaWYoMSxtaW49MSxtYXg9ZGVncmVlKHJuMixuZXcsbW9kZT0iYWxsIikpKTsNCiAgICBybjIgPC0gYWRkX2VkZ2VzKHJuMixjKHgsbm5bbmV3MV0pKX0NCiAgZWxzZSB7DQogICAgbmV3MiA8LSBuZXc7IA0KICAgIHdoaWxlIChuZXc9PW5ldzIpIG5ldzI8LWZsb29yKHJ1bmlmKDEsbWluPTEsbWF4PXgtMSkpOw0KICAgIHJuMiA8LSBhZGRfZWRnZXMocm4yLGMobmV3Mix4KSl9Ow0KfQ0KYGBgDQoNCj4gUXVhbCBvIG3DqXRvZG8gdXRpbGl6YWRvIG5lc3RhIGdlcmHDp8Ojbz8gSnVzdGlmaXF1ZS4gDQoNCj4gQ2FyYWN0ZXJpemUgZXN0YSByZWRlIHF1YW50byBhbyBncmF1IG3DqWRpbyBkb3Mgbm9kb3MsIMOgIGNvbmVjdGl2aWRhZGUsIGRpc3TDom5jaWEgbcOpZGlhIGUgZXhpc3TDqm5jaWEgZGUgdHJpw6JuZ3Vsb3MuIEFwbGlxdWUgYWluZGEgbcOpdG9kb3MgZGUgaWRlbnRpZmljYcOnw6NvIGRlIGNvbXVuaWRhZGVzLiANCg0KIyBRVUVTVMODTyAzOg0KDQo+IENvbXBhcmUgZSBjb21lbnRlIG9zIHJlc3VsdGFkb3Mgb2J0aWRvcyBuYXMgcXVlc3TDtWVzIGFudGVyaW9yZXMuDQo=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkFuw6FsaXNlIGRlIFJlZGVzIC0gVHJhYmFsaG8gZGUgR3J1cG8gbi7CuiAyIg0KYXV0aG9yOg0KLSBDYXRhcmluYSBDYXN0YW5oZWlyYSwgOTI0NzgNCi0gSm/Do28gTWFydGlucywgOTMyNTkNCi0gSm9lbCBQYXVsYSwgOTMzOTINCmRhdGU6ICIwMy8wMS8yMDIyIg0Kb3V0cHV0Og0KICBwZGZfZG9jdW1lbnQ6IA0KICAgIGZpZ193aWR0aDogMTYNCiAgICBmaWdfaGVpZ2h0OiA5DQogIGh0bWxfZG9jdW1lbnQ6IA0KICAgIGtlZXBfbWQ6IHllcw0KICAgIGZpZ193aWR0aDogMTYNCiAgICBmaWdfaGVpZ2h0OiA5DQogIHdvcmRfZG9jdW1lbnQ6IA0KICAgIGZpZ193aWR0aDogMTYNCiAgICBmaWdfaGVpZ2h0OiA5DQpzdWJ0aXRsZTogJ0Npw6puY2lhIGRlIERhZG9zIC0gUEwgLSAzwrogYW5vIHwgUHJvZmVzc29yYTogTWFyaWEgSm/Do28gRnJhesOjbyBMb3BlcycNCmhlYWRlci1pbmNsdWRlczoNCi0gXHVzZXBhY2thZ2Vbc2ZkZWZhdWx0XXtyb2JvdG99DQotIFxyZW5ld2NvbW1hbmR7XGZhbWlseWRlZmF1bHR9e1xzZmRlZmF1bHR9DQotIFx1c2VwYWNrYWdle3RpdGxpbmd9DQotIFxwcmV0aXRsZXtccGFyXHZzcGFjZXs1MG1tfVxiZWdpbntjZW50ZXJ9DQotIFxwb3N0dGl0bGV7XHBhclx2c3BhY2V7MTAwbW19XGVuZHtjZW50ZXJ9fSBcaW5jbHVkZWdyYXBoaWNzW3dpZHRoPTJpbixoZWlnaHQ9MmluXXtyZ2JfaXNjdGVfcHRfaG9yaXpvbnRhbF9wb3NpdGl2ZS5wbmd9XExBUkdFXFx9DQotIFx1c2VwYWNrYWdle2NhcHRpb259DQotIFxjYXB0aW9uc2V0dXBbdGFibGVde2xhYmVsZm9ybWF0PWVtcHR5fQ0KLSBcY2FwdGlvbnNldHVwW2ZpZ3VyZV17bGFiZWxmb3JtYXQ9ZW1wdHl9DQplZGl0b3Jfb3B0aW9uczoNCiAgbWFya2Rvd246DQogICAgd3JhcDogOTANCi0tLQ0KDQpgYGB7ciBzZXR1cCwgaW5jbHVkZT1GQUxTRX0NCmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkNCmxpYnJhcnkoa25pdHIpDQpsaWJyYXJ5KGlncmFwaCkNCmBgYA0KDQojIFFVRVNUw4NPIDE6DQoNCj4gU3Vwb25oYSBxdWUgcHJldGVuZGUgZ2VyYXIgdW1hIHJlZGUgYWxlYXTDs3JpYSBuw6NvIG9yaWVudGFkYSBjb20gMTAwIG5vZG9zIGUgZ3JhdSBtw6lkaW8gYXByb3hpbWFkYW1lbnRlIGlndWFsIGEgNC4gUXVhbCBkZXZlIHNlciBhIHByb2JhYmlsaWRhZGUgdXRpbGl6YWRhIG5hIGdlcmHDp8OjbyBkYSByZWRlPw0KPiBHZXJlIGVzdGEgcmVkZS4NCg0KTyBncmF1IG3DqWRpbyBzZXJpYSBkZSBhcHJveGltYWRhbWVudGUgMTAwLCBzZSB0b2RvcyBvcyBub2RvcyBlc3RpdmVzc2VtIGxpZ2Fkb3MgZW50cmUgc2kuIE5lc3RlIGNhc28gdGVyZW1vcyB1bWEgcHJvYmFiaWxpZGFkZSBkZSA0JSAtIHF1ZSBjYWRhIG5vZG8gZXN0ZWphIGxpZ2FkbyBhcGVuYXMgYSA0IGRvcyAxMDAgbm9kb3MuDQoNCsOJIHBvc3PDrXZlbCBkZXRlcm1pbmFyIG8gZ3JhdSBtw6lkaW8gZGUgdW1hIHJlZGUgY29uaGVjZW5kbyBvIG7Dum1lcm8gZGUgbm9kb3MgZSBhIHByb2JhYmlsaWRhZGUgZGUgZ2VyYcOnw6NvIHV0aWxpemFkYToNCg0KJFxsYW5nbGUga1xyYW5nbGUgPSBwKE4tMSkkDQoNCklzdG8gc2lnbmlmaWNhIHF1ZSwgcmVzb2x2ZW5kbyBhIGVxdWHDp8OjbyBlbSBmdW7Dp8OjbyBkZSBwLCB0ZW1vczoNCg0KJHAgPSBcbGFuZ2xlIGtccmFuZ2xlIC8gKE4tMSkkDQoNCk5vIG5vc3NvIGNhc28gY29uY3JldG8sIG8gb2JqZWN0aXZvIMOpIG9idGVybW9zICRcbGFuZ2xlIGtccmFuZ2xlID0gNCQsIHRlbmRvICROPTEwMCQuIExvZ28sIGEgcHJvYmFiaWxpZGFkZSBxdWUgZGV2ZXLDoSBzZXIgdXNhZGEgbmEgZ2VyYcOnw6NvIGRhIHJlZGUgYWxlYXTDs3JpYSDDqToNCg0KJHAgPSA0LygxMDAtMSkgXExlZnRyaWdodGFycm93IHAgPSA0Lzk5ID0gMC4wNCBcdGV4dHsgKGFwcm94Lil9JA0KDQpPdSBzZWphLCBwYXJhIG9idGVybW9zIHVtYSByZWRlIGFsZXTDs3JpYSBkZSAxMDAgbm9kb3MgZSB1bSBncmF1IG3DqWRpbyBkZSA0LCBkZXZlcmVtb3MgdXNhciB1bWEgcHJvYmFiaWxpZGFkZSBkZSA0JSBuYSBnZXJhw6fDo28gZGFzIHN1YXMgbGlnYcOnw7Vlcy4NCg0KYGBge3J9DQpzZXQuc2VlZCg0MikNCmdyYXBoMSA8LSBzYW1wbGVfZ25wKDEwMCwgMC4wNCkNCmRlZ3JlZXMgPC0gZGVncmVlKGdyYXBoMSwgbW9kZT0iYWxsIikNCnBhcihtYXI9YygwLDAsMSwwKSkNCiMgR3LDoWZpY28gY29tIGdyYXUNCnBsb3QoZ3JhcGgxLCAgdmVydGV4LnNpemU9MytkZWdyZWVzKjIsIGVkZ2UuY29sb3I9Im9yYW5nZTQiDQogICAgICwgZWRnZS53aWR0aD0yDQogICAgICwgdmVydGV4LmxhYmVsPWRlZ3JlZXMNCiAgICAgLCB2ZXJ0ZXgubGFiZWwuY2V4PTAuNzUNCiAgICAgLCB2ZXJ0ZXgubGFiZWwuY29sb3I9ImJsYWNrIg0KICAgICAsIHZlcnRleC5sYWJlbC5mYW1pbHk9InNhbnMiDQogICAgICwgdmVydGV4LmZyYW1lLmNvbG9yPSJvcmFuZ2UiDQogICAgICwgdmVydGV4LmNvbG9yID0gIm9yYW5nZSINCiAgICAgLCBtYWluPSJSZWRlIGFsZWF0w7NyaWEgcmVwcmVzZW50YW5kbyBvcyBncmF1cyBkb3Mgbm9kb3MiDQogICAgICkNCmBgYA0KDQo+IENhcmFjdGVyaXplIGVzdGEgcmVkZSBxdWFudG8gYW8gZ3JhdSBtw6lkaW8gZG9zIG5vZG9zLCDDoCBjb25lY3RpdmlkYWRlLCBkaXN0w6JuY2lhIG3DqWRpYSBlIGV4aXN0w6puY2lhIGRlIHRyacOibmd1bG9zLiBBcGxpcXVlIGFpbmRhIG3DqXRvZG9zIGRlIGlkZW50aWZpY2HDp8OjbyBkZSBjb211bmlkYWRlcy4NCg0KIyMgR3JhdSBNw6lkaW8NCg0KYGBge3J9DQojIGdyYXUgbcOpZGlvDQptZWFuKGRlZ3JlZShncmFwaDEpKQ0KYGBgDQoNCk8gZ3JhdSBtw6lkaW8gw6kgcHLDs3hpbW8gZGUgNCwgdGFsIGNvbW8gZXNwZXJhcsOtYW1vcy4NCg0KIyMgQ29uZWN0aXZpZGFkZQ0KDQpgYGB7cn0NCmRlZ3JlZShncmFwaDEpDQpgYGANCg0KVmVtb3MgcXVlIGV4aXN0ZW0gNCBub2RvcyBjb20gZ3JhdSB6ZXJvLCBvIHF1ZSBpbmRpY2EgcXVlIG7Do28gdMOqbSBxdWFscXVlciBsaWdhw6fDo28uIE5lc3RlIGNhc28gZXN0YW1vcyBwZXJhbnRlIHVtYSByZWRlIGRlc2NvbmV4YS4NCg0KUG9ydGFudG8sIGV4aXN0ZW0gNCBub2RvcyBpc29sYWRvcyBlIHVtYSBjb21wb25lbnRlIGdpZ2FudGUuDQoNCmBgYHtyfQ0KY29tcG9uZW50cyhncmFwaDEpDQpgYGANCg0KIyMgQXNzb2NpYcOnw6NvDQoNCmBgYHtyfQ0KIyBBc3NvY2lhw6fDo28gZGUgZ3JhdQ0KYXNzb3J0YXRpdml0eV9kZWdyZWUoZ3JhcGgxKSANCmBgYA0KDQrDiSBuZWdhdGl2byBtYXMgbXVpdG8gcHLDs3hpbW8gZGUgemVybywgcG9yIGlzc28gbsOjbyDDqSB1bSByZWRlIGFzc29jaWF0aXZhIG1hcyB0YW1iw6ltIG7Do28gc2UgcG9kZSBjb25jbHVpciBxdWUgw6kgTsOjbyBhc3NvY2lhdGl2YS4NCg0KVmFtb3Mgb2xoYXIgYWdvcmEgcGFyYSBvIG3DqXRvZG8gZGUgbWVkacOnw6NvIGRhIGFzc29jaWHDp8OjbyBkZSBncmF1IGNvbSBiYXNlIG5vIGdyYXUgbcOpZGlvIGRvcyBub2RvcyBhZGphY2VudGVzOg0KDQpgYGB7cn0NCmtubihncmFwaDEpJGtubmsNCg0KYGBgDQoNCkEgZnVuw6fDo28gdGVtIHVtYSB0ZW5kw6puY2lhIGRlY3Jlc2NlbnRlLCBtYXMgbsOjbyBlc3RyaXRhbWVudGUgZGVjcmVzY2VudGUsIG9zY2lsYW5kby4gUG9yIGlzc28gbWFudGVtb3MgcXVlIG7Do28gw6kgdW1hIHJlZGUgYXNzb2NpYXRpdmEgbWFzIHRhbWLDqW0gbsOjbyBwb2RlIHNlciBjbGFzc2lmaWNhZGEgY29tbyBuw6NvIGFzc29jaWF0aXZhLg0KDQojIyBEaXN0w6JuY2lhIG3DqWRpYQ0KDQpgYGB7cn0NCiMgZGlzdMOibmNpYSBtw6lkaWENCm1lYW5fZGlzdGFuY2UoZ3JhcGgxKQ0KDQpsb2cxMCgxMDApDQoNCiNkacOibWV0cm8NCmRpYW1ldGVyKGdyYXBoMSkNCmBgYA0KDQpBIGRpc3TDom5jaWEgbcOpZGlhIMOpIGdyYW5kZSwgasOhIHF1ZSBzZSBhZmFzdGEgc3Vic3RhbmNpYWxtZW50ZSBkZSAkbG9nMTAoTikkLg0KDQpBIG1haW9yIGRpc3TDom5jaWEgZW50cmUgbm9kb3MgKGNvbmVjdGFkb3MpIMOpIGRlIDguDQoNCiMjIEV4aXN0w6puY2lhIGRlIHRyacOibmd1bG9zDQoNCmBgYHtyfQ0KIyBDb2VmaWNpZW50ZSBkZSBjbHVzdGVyaW5nDQp0cmFuc2l0aXZpdHkoZ3JhcGgxLCB0eXBlPSJnbG9iYWwiKQ0KYGBgDQoNCsOJIHVtIG7Dum1lcm8gYmFpeG8gZGUgdHJpw6JuZ3Vsb3MsIGrDoSBxdWUgbyBjb2VmaWNpZW50ZSBkZSAqY2x1c3RlcmluZyogw6kgdW0gcsOhY2lvIGVudHJlIG8gbsO6bWVybyBkZSB0cmnDom5ndWxvcyBlIG8gbsO6bWVybyB0b3RhbCBkZSB0ZXJub3MgY29uZXhvcyBlIGVzdGUgw6kgYmFpeG8uDQoNCiMjIElkZW50aWZpY2HDp8OjbyBkZSBjb211bmlkYWRlcw0KDQpVc2FuZG8gbyBtw6l0b2RvIGRvIGNvcnRlIG3DrW5pbW86DQoNCmBgYHtyfQ0KbWluX2N1dChncmFwaDEsIHZhbHVlLm9ubHkgPSBGKQ0KYGBgDQoNClRlbW9zIHVtIGNvbmp1bnRvIGNvbSBvcyBub2RvcyBsaWdhZG9zIChhIGNvbXBvbmVudGUgZ2lnYW50ZSkgZSB1bSBvdXRybyBjb20gb3Mgbm9kb3MgaXNvbGFkb3MuIENvbSB1bSBjb3J0ZSBkZSBkaW1lbnPDo28gemVyby4NCg0KVXNhbmRvIG8gbcOpdG9kbyBkYXMgY2xpcXVlczoNCg0KYGBge3J9DQpzYXBwbHkoY2xpcXVlcyhncmFwaDEpLGxlbmd0aCkNCg0KYGBgDQoNCkFzIGNsaXF1ZXMgcGFyZWNlbSBmYXplciBkaXZpc8O1ZXMgbXVpdG8gcGVxdWVuYXMsIGRlIDEsIDIgb3UgMyBub2Rvcy4gU2VuZG8gcXVlIGFzIG1haW9yZXMgY2xpcXVlcyB0w6ptIDMgbm9kb3MuIE8gbsO6bWVybyBleGNlc3Npdm8gZGUgY29tdW5pZGFkZXMgw6kgdW0gZG9zIHByb2JsZW1hcyBjb25oZWNpZG9zIGRlc3RlIGFsZ29yaXRtby4NCg0KYGBge3J9DQpsYXJnZXN0X2NsaXF1ZXMoZ3JhcGgxKQ0KYGBgDQoNCkZ1bsOnw6NvIHF1ZSBtb3N0cmEgZGFkb3Mgc29icmUgKmNsdXN0ZXJzKjoNCmBgYHtyfQ0Kc2hvdy5jbHVzdGVyIDwtIGZ1bmN0aW9uKGcxLCBjbCkgew0KICBwbG90KGNsLCBnMQ0KICAgICAgICAgICwgZWRnZS5jb2xvcj0ib3JhbmdlNCINCiAgICAgICAgICAsIGVkZ2Uud2lkdGg9Mg0KICAgICAgICAgICwgdmVydGV4LmxhYmVsLmNleD0wLjc1DQogICAgICAgICAgLCB2ZXJ0ZXgubGFiZWwuY29sb3I9ImJsYWNrIg0KICAgICAgICAgICwgdmVydGV4LmxhYmVsLmZhbWlseT0ic2FucyINCiAgICAgICAgICAsIHZlcnRleC5mcmFtZS5jb2xvcj0ib3JhbmdlNCINCiAgICAgICAgICApDQogIHByaW50KGMoIk7Dum1lcm8gZGUgY2x1c3RlcnM6IiwgbGVuZ3RoKGNsKSkpDQogIHByaW50KCJUYW1hbmhvIGRvcyBjbHVzdGVyczoiKQ0KICBwcmludChzaXplcyhjbCkpDQogIHByaW50KGMoIm1vZHVsYXJpZGFkZToiLCBtb2R1bGFyaXR5KGNsKSkpDQogIHByaW50KCJQZXJ0ZW7Dp2EgYSBjbHVzdGVyczoiKQ0KICBtZW1iZXJzaGlwKGNsKQ0KfQ0KYGBgDQoNClZlcmlmaWNhbmRvIG8gbcOpdG9kbyBkZSBjbHVzdGVyaW5nIHBlbGEgcmVtb8Onw6NvIGRlIHBvbnRlczoNCg0KYGBge3J9DQpzaG93LmNsdXN0ZXIoZ3JhcGgxLCBjbHVzdGVyX2VkZ2VfYmV0d2Vlbm5lc3MoZ3JhcGgxKSkNCmBgYA0KDQpVc2FuZG8gbyBtw6l0b2RvIGRlIGNsdXN0ZXJpbmcgcGVsYSBwcm9wYWdhw6fDo28gZGUgZXRpcXVldGFzOg0KDQpgYGB7cn0NCnNldC5zZWVkKDQyKQ0Kc2hvdy5jbHVzdGVyKGdyYXBoMSwgY2x1c3Rlcl9sYWJlbF9wcm9wKGdyYXBoMSkpDQpgYGANCg0KVXPDoW1vcyBvIGBzZXQuc2VlZCg0MilgIHBhcmEgZXN0YWJpbGl6YXIgbnVtYSBtZXNtYSBzb2x1w6fDo28sIHBhcmEgYW7DoWxpc2UuDQoNClVzYW5kbyBvIG3DqXRvZG8gZGEgb3RpbWl6YcOnw6NvIGRlIG1vZHVsYXJpZGFkZToNCg0KYGBge3J9DQpzaG93LmNsdXN0ZXIoZ3JhcGgxLCBjbHVzdGVyX2Zhc3RfZ3JlZWR5KGdyYXBoMSkpDQpgYGANCg0KIyBRVUVTVMODTyAyOg0KDQo+IFV0aWxpemUgbyBwcm9ncmFtYSBzZWd1aW50ZSBwYXJhIGdlcmFyIGEgcmVkZSBhbGVhdMOzcmlhIHJuMjoNCg0KYGBge3J9DQpzZXQuc2VlZCg0MikNCnJuMiA8LSBncmFwaChlZGdlPWMoMSwyLDEsMywyLDMsMyw0LDMsNSw0LDUsNSw2LDUsNyw2LDcsNyw4LDcsOSw4LDksMiw0LDQsNiw2LDgpDQogICAgICAgICAgICAgLG49MTAwDQogICAgICAgICAgICAgLGRpcmVjdGVkPUYpOw0KeCA9IDk7DQp5ID0gMTU7DQpmb3IgKGkgaW4gMTo5MSkgew0KICBuZXcgPC0gZmxvb3IocnVuaWYoMSxtaW49MSxtYXg9eCkpOw0KICBubiA8LSBuZWlnaGJvcnMocm4yLG5ldyk7DQogIHggPSB4KzE7DQogIHkgPSB5KzE7DQogIHJuMiA8LSBhZGRfZWRnZXMocm4yLGMobmV3LHgpKTsNCiAgbmV3ciA8LSBydW5pZigxKTsNCiAgeSA9IHkrMTsNCiAgaWYgKG5ld3IgPCAwLjc1KSB7DQogICAgbmV3MSA8LSBmbG9vcihydW5pZigxLG1pbj0xLG1heD1kZWdyZWUocm4yLG5ldyxtb2RlPSJhbGwiKSkpOw0KICAgIHJuMiA8LSBhZGRfZWRnZXMocm4yLGMoeCxubltuZXcxXSkpfQ0KICBlbHNlIHsNCiAgICBuZXcyIDwtIG5ldzsgDQogICAgd2hpbGUgKG5ldz09bmV3MikgbmV3MjwtZmxvb3IocnVuaWYoMSxtaW49MSxtYXg9eC0xKSk7DQogICAgcm4yIDwtIGFkZF9lZGdlcyhybjIsYyhuZXcyLHgpKX07DQp9DQpgYGANCg0KPiBRdWFsIG8gbcOpdG9kbyB1dGlsaXphZG8gbmVzdGEgZ2VyYcOnw6NvPyBKdXN0aWZpcXVlLg0KDQpPIG3DqXRvZG8gdXRpbGl6YWRvIG5lc3RhIGdlcmHDp8OjbyDDqSBvIE1vZGVsbyBkbyBQYXNzZWlvIEFsZWF0w7NyaW8uIE5lc3RlIG3DqXRvZG8sIGNvbWXDp2Ftb3MgYSBjcmlhw6fDo28gZGUgdW1hIHJlZGUgYWxlYXTDs3JpYSBhIHBhcnRpciBkZSB1bWEgcGVxdWVuYSBzdWItcmVkZSAtIG5vIHByb2dyYW1hIHRlbW9zIHVtYSBzdWJyZWRlIGNvbmV4YSBjb21wb3N0YSBwb3IgOSBub2RvcywgY29tIGEgcmVwcmVzZW50YcOnw6NvIGFiYWl4bzoNCg0KYGBge3J9DQpzZXQuc2VlZCg0MikNCnBsb3QoZ3JhcGgoZWRnZT1jKDEsMiwxLDMsMiwzLDMsNCwzLDUsNCw1LDUsNiw1LDcsNiw3LDcsOCw3LDksOCw5LDIsNCw0LDYsNiw4KSxkaXJlY3RlZD1GKQ0KICAgICAsIGVkZ2UuY29sb3I9Im9yYW5nZTQiDQogICAgICwgZWRnZS53aWR0aD0yDQogICAgICwgdmVydGV4LmxhYmVsLmNvbG9yPSJibGFjayINCiAgICAgLCB2ZXJ0ZXgubGFiZWwuZmFtaWx5PSJzYW5zIg0KICAgICAsIHZlcnRleC5mcmFtZS5jb2xvcj0ib3JhbmdlIg0KICAgICAsIHZlcnRleC5jb2xvciA9ICJvcmFuZ2UiDQogICAgICwgbWFpbj0iU3ViLXJlZGUgY29uZWN0YWRhLCBkZSBwYXJ0aWRhIikNCmBgYA0KDQpOYSBwcsOhdGljYSwgYSByZWRlIGdlcmFkYSBwZWxvIHByb2dyYW1hIGNvbnTDqW0gasOhIG9zIDEwMCBub2RvcyBxdWUgc2UgcHJldGVuZGUgdXRpbGl6YXIsIG1hcyBvcyByZXN0YW50ZXMgOTEgbsOjbyB0w6ptLCBuYSBmYXNlIGluaWNpYWwsIGFpbmRhIHF1YWxxdWVyIGxpZ2HDp8Ojby4gQ29tIGEgY29uc3RydcOnw6NvIGRhIHJlZGUgYWxlYXTDs3JpYSBlbGVzIHNlcsOjbyBpdGVyYXRpdmFtZW50ZSBhZGljaW9uYWRvcy4gRW0gY2FkYSBpdGVyYcOnw6NvLCBvdSBzZWphLCBwb3IgY2FkYSB1bSBkb3MgOTEgbm9kb3MgcXVlIHNlcsOjbyBhZGljaW9uYWRvcyDDoCBzdWJyZWRlIGNvbmV4YSBqw6EgZXhpc3RlbnRlLCB0ZW1vczoNCg0KLSAgIG8gbcOpdG9kbyBzZWxlY2Npb25hIGFsZWF0b3JpYW1lbnRlIGEgcGFydGlyIGRlIHVtYSBkaXN0cmlidWnDp8OjbyB1bmlmb3JtZSB1bSBkb3Mgbm9kb3MgZGEgc3VicmVkZSAoIm5ldyIpLCBlIGlkZW50aWZpY2EgcXVhaXMgb3MgcmVzcGVjdGl2b3Mgbm9kb3MgYWRqYWNlbnRlcy4gQ3JpYSBlbnRyZXRhbnRvIHVtYSBsaWdhw6fDo28gZW50cmUgbyBub2RvIHNlbGVjY2lvbmFkbyBlIG8gcHLDs3hpbW8gYSBzZXIgaW50ZWdyYWRvIG5hIHN1Yi1yZWRlIChvdSBzZWphLCB1bSBub2RvIGRvIHN1YmNvbmp1bnRvIHF1ZSB0w6ptIGdyYXUgemVybzsgbmEgcHJpbWVpcmEgaXRlcmHDp8OjbywgcG9yIGV4ZW1wbG8sIGNyaWEgdW1hIG5vdmEgbGlnYcOnw6NvIGVudHJlIG8gbm9kbyAxMCBlIHVtIGRvcyBkYSBzdWJyZWRlIGNvbmV4YSk7DQoNCi0gICDDqSBnZXJhZG8gdW0gbsO6bWVybyBhbGVhdMOzcmlvIHF1ZSBkaXRhIHVtYSBwcm9iYWJpbGlkYWRlIChwID0gMC43NSBlIHEgPSAwLjI1KSwgcXVlIMOpIHVzYWRhIGRhIHNlZ3VpbnRlIGZvcm1hOg0KDQogICAgLSAgIHNlIG9idGl2ZXJtb3MgcCAoY29tIHByb2JhYmlsaWRhZGUgZGUgNzUlKSwgZW50w6NvIMOpIGNyaWFkYSBtYWlzIHVtYSBsaWdhw6fDo28gZW50cmUgbyBub3ZvIG5vZG8gZSB1bSBkb3MgYWRqYWNlbnRlcyBkZSAibmV3IiAoasOhIGlkZW50aWZpY2FkbyBubyBpbsOtY2lvIGRhIGl0ZXJhw6fDo28pIC0gY3JpYW5kbyB1bSB0cmnDom5ndWxvOw0KDQogICAgLSAgIHNlIG9idGl2ZXJtb3MgcSAoMS1wKSwgZW50w6NvIMOpIGNyaWFkYSBtYWlzIHVtYSBsaWdhw6fDo28gZW50cmUgbyBub3ZvIG5vZG8gZSB1bSBkb3MgasOhIHBlcnRlbmNlbnRlcyDDoCBzdWJyZWRlIGNvbmV4YSwgc2VsZWNjaW9uYWRvIGFsZWF0b3JpYW1lbnRlIGEgcGFydGlyIGRlIHVtYSBkaXN0cmlidWnDp8OjbyB1bmlmb3JtZTsNCg0KRXN0ZSBtw6l0b2RvIHRlcm1pbmEgcXVhbmRvIHRvZG9zIG9zIDkxIG5vZG9zIHRpdmVyZW0gc2lkbyBhZGljaW9uYWRvcyDDoCByZWRlIGF0cmF2w6lzIGRhIGNyaWHDp8OjbyBkYXMgbGlnYcOnw7Vlcy4NCg0KRXN0ZSDDqSB1bSBtw6l0b2RvIGRlIGdlcmHDp8OjbyBkZSByZWRlcyBhbGVhdMOzcmlhcyBxdWUgbsOjbyBlc2NvbGhlIG9zIG5vZG9zIGFkamFjZW50ZXMgY29tIGJhc2Ugbm8gc2V1IGdyYXUuIEVzdGEgZXNjb2xoYSDDqSBhbGVhdMOzcmlhLg0KDQo+IENhcmFjdGVyaXplIGVzdGEgcmVkZSBxdWFudG8gYW8gZ3JhdSBtw6lkaW8gZG9zIG5vZG9zLCDDoCBjb25lY3RpdmlkYWRlLCBkaXN0w6JuY2lhIG3DqWRpYSBlIGV4aXN0w6puY2lhIGRlIHRyacOibmd1bG9zLiBBcGxpcXVlIGFpbmRhIG3DqXRvZG9zIGRlIGlkZW50aWZpY2HDp8OjbyBkZSBjb211bmlkYWRlcy4NCg0KYGBge3J9DQpzZXQuc2VlZCg0MikNCmRlZ3JlZXMgPC0gZGVncmVlKHJuMiwgbW9kZT0iYWxsIikNCnBhcihtYXI9YygwLDAsMSwwKSkNCiMgR3LDoWZpY28gY29tIGdyYXUNCnBsb3Qocm4yLCAgdmVydGV4LnNpemU9ZGVncmVlcyoyLCBlZGdlLmNvbG9yPSJvcmFuZ2U0Ig0KICAgICAsIGVkZ2Uud2lkdGg9Mg0KICAgICAsIHZlcnRleC5sYWJlbD1kZWdyZWVzDQogICAgICwgdmVydGV4LmxhYmVsLmNleD0wLjc1DQogICAgICwgdmVydGV4LmxhYmVsLmNvbG9yPSJibGFjayINCiAgICAgLCB2ZXJ0ZXgubGFiZWwuZmFtaWx5PSJzYW5zIg0KICAgICAsIHZlcnRleC5mcmFtZS5jb2xvcj0ib3JhbmdlIg0KICAgICAsIHZlcnRleC5jb2xvciA9ICJvcmFuZ2UiDQogICAgICwgbWFpbj0iUmVkZSBhbGVhdMOzcmlhIDIgcmVwcmVzZW50YW5kbyBvcyBncmF1cyBkb3Mgbm9kb3MiDQogICAgICkNCmBgYA0KDQpgYGB7cn0NCiMgR3JhdSBtw6lkaW8NCm1lYW4oZGVncmVlKHJuMikpDQpgYGANCg0KTyBncmF1IG3DqWRpbyDDqSBwcsOzeGltbyBkZSA0LCBlbSBzZW1lbGhhbsOnYSDDoCBwcmltZWlyYSByZWRlLg0KDQpgYGB7cn0NCiMgQ29uZWN0aXZpZGFkZQ0KZGVncmVlKHJuMikNCmBgYA0KDQpOw6NvIGV4aXN0ZW0gbm9kb3MgY29tIGdyYXUgaWd1YWwgYSAwLCBvIHF1ZSBxdWVyIGRpemVyIHF1ZSBleGlzdGUgdW0gY2FtaW5obyBlbnRyZSBxdWFscXVlciBwYXIgZGUgbm9kb3MuIE5lc3RlIGNhc28gZXN0YW1vcyBwZXJhbnRlIHVtYSByZWRlIGNvbmV4YS4NCg0KYGBge3J9DQojIEFzc29jaWHDp8OjbyBkZSBncmF1DQphc3NvcnRhdGl2aXR5X2RlZ3JlZShybjIpIA0KYGBgDQoNCsOJIG11aXRvIHByw7N4aW1vIGRlIHplcm8sIHBvciBpc3NvIG7Do28gw6kgdW0gcmVkZSBhc3NvY2lhdGl2YSBtYXMgdGFtYsOpbSBuw6NvIHNlIHBvZGUgY29uY2x1aXIgcXVlIMOpIE7Do28gYXNzb2NpYXRpdmEuDQoNCmBgYHtyfQ0Ka25uKHJuMikka25uaw0KYGBgDQoNCmBgYHtyfQ0KIyBEaXN0w6JuY2lhIG3DqWRpYQ0KbWVhbl9kaXN0YW5jZShybjIpDQpgYGANCg0KYGBge3J9DQpsb2cxMCgxMDApDQpgYGANCg0KQSBkaXN0w6JuY2lhIG3DqWRpYSDDqSBncmFuZGUsIGrDoSBxdWUgc2UgYWZhc3RhIHN1YnN0YW5jaWFsbWVudGUgZGUgJGxvZzEwKE4pJC4NCg0KYGBge3J9DQojIERpw6JtZXRybw0KZGlhbWV0ZXIocm4yKQ0KYGBgDQoNCkEgbWFpb3IgZGlzdMOibmNpYSBlbnRyZSBub2RvcyAoY29uZWN0YWRvcykgw6kgZGUgNy4NCg0KYGBge3J9DQojIEV4aXN0w6puY2lhIGRlIHRyacOibmd1bG9zDQp0cmFuc2l0aXZpdHkocm4yLCB0eXBlID0gImdsb2JhbCIpDQpgYGANCg0KTyByw6FjaW8gw6kgYmFzdGFudGUgc3VwZXJpb3IgYSB6ZXJvLCBlbWJvcmEgbsOjbyBzZSBhcHJveGltZSBkZSAxIC0gcmV2ZWxhIGEgZXhpc3TDqm5jaWEgZGUgYmFzdGFudGVzIHRyacOibmd1bG9zLg0KDQojIyBJZGVudGlmaWNhw6fDo28gZGUgY29tdW5pZGFkZXMNCg0KVXNhbmRvIG8gbcOpdG9kbyBkbyBjb3J0ZSBtw61uaW1vOg0KDQpgYGB7cn0NCnNldC5zZWVkKDQyKQ0KbWluX2N1dChybjIsIHZhbHVlLm9ubHkgPSBGKQ0KYGBgDQoNCk1haXMgdW1hIHZleiwgZXN0ZSBtw6l0b2RvIHNlcGFyYSBhIHJlZGUgZW0gZG9pcyBjb20gZGltZW5zw6NvIGRvaXMgLSB1bWEgY29tcG9uZW50ZSBnaWdhbnRlIGUgdW0gbm9kbyBpc29sYWRvLg0KDQpVc2FuZG8gbyBtw6l0b2RvIGRhcyBjbGlxdWVzOg0KDQpgYGB7cn0NCnNhcHBseShjbGlxdWVzKHJuMiksbGVuZ3RoKQ0KDQpgYGANCg0KQXMgY2xpcXVlcyBwYXJlY2VtIGZhemVyIGRpdmlzw7VlcyBtdWl0byBwZXF1ZW5hcywgZGUgMSwgMiBvdSAzIG5vZG9zLiBTZW5kbyBxdWUgYXMgbWFpb3JlcyBjbGlxdWVzIHTDqm0gMyBub2Rvcy4gTyBuw7ptZXJvIGV4Y2Vzc2l2byBkZSBjb211bmlkYWRlcyDDqSB1bSBwcm9ibGVtYSBjb25oZWNpZG8gZGVzdGUgYWxnb3JpdG1vLg0KDQpgYGB7cn0NCmxhcmdlc3RfY2xpcXVlcyhybjIpDQpgYGANCg0KVmVyaWZpY2FuZG8gbyBtw6l0b2RvIGRhIHJlbW/Dp8OjbyBkZSBwb250ZXM6DQoNCmBgYHtyfQ0Kc2hvdy5jbHVzdGVyKHJuMiwgY2x1c3Rlcl9lZGdlX2JldHdlZW5uZXNzKHJuMikpDQpgYGANCg0KVXNhbmRvIG8gbcOpdG9kbyBkZSBwcm9wYWdhw6fDo28gZGUgZXRpcXVldGFzOg0KDQpgYGB7cn0NCnNldC5zZWVkKDQyKQ0Kc2hvdy5jbHVzdGVyKHJuMiwgY2x1c3Rlcl9sYWJlbF9wcm9wKHJuMikpDQpgYGANCg0KVXPDoW1vcyBvIGBzZXQuc2VlZCg0MilgIHBhcmEgZXN0YWJpbGl6YXIgbnVtYSBtZXNtYSBzb2x1w6fDo28sIHBhcmEgYW7DoWxpc2UuDQoNClVzYW5kbyBvIG3DqXRvZG8gZGEgb3RpbWl6YcOnw6NvIGRlIG1vZHVsYXJpZGFkZToNCg0KYGBge3J9DQpzaG93LmNsdXN0ZXIocm4yLCBjbHVzdGVyX2Zhc3RfZ3JlZWR5KHJuMikpDQpgYGANCg0KIyBRVUVTVMODTyAzOg0KDQo+IENvbXBhcmUgZSBjb21lbnRlIG9zIHJlc3VsdGFkb3Mgb2J0aWRvcyBuYXMgcXVlc3TDtWVzIGFudGVyaW9yZXMuDQoNClF1ZSBkaWZlcmVuw6dhcyBjb25zZWd1aW1vcyBvYnNlcnZhciBlbnRyZSBhIHF1ZXN0w6NvIDEgZSBhIDI/IE8gcXVlIMOpIHF1ZSBkw6EgcGFyYSBjb25jbHVpcj8NCg0KLSAgIENDIHNvYnJlIGEgYXNzb2NpYcOnw6NvIGRlIGdyYXUNCg0KLSAgIENDIHNvYnJlIGEgZGlzdMOibmNpYSBtw6lkaWENCg0KLSAgIENDIHNvYnJlIG8gZGnDom1ldHJvDQoNCi0gICBDQyBzb2JyZSBhIGV4aXN0w6puY2lhIGRlIHRyacOibmd1bG9zDQoNCi0gICBKUCBzb2JyZSBhcyBjb211bmlkYWRlcw0KDQotICAgSk0gbyBpbXBhY3RvIHF1ZSBvIG3DqXRvZG8gKnJhbmRvbSB3YWxrKiB0ZW0gbmEgY29uc3RydcOnw6NvIGRlIHVtYSByZWRlIGFsZWF0w7NyaWE7IHZhbnRhZ2VucyBlIGRlc3ZhbnRhZ2VucyBkb3MgbcOpdG9kb3MgdXNhZG9zIGVtIDEgZSAyDQo=</div>
 
 
 
