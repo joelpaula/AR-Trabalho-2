@@ -52,6 +52,10 @@ knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 library(igraph)
 ```
+# Introdução
+
+Este trabalho leva-nos a estudar dus redes aleatórias, aparentemente com caracter+isticas de base comuns (grau médio e número de nodos) .... TODO
+
 
 # QUESTÃO 1:
 
@@ -314,7 +318,13 @@ O grau médio é próximo de 4, em semelhança à primeira rede.
 degree(rn2)
 ```
 
-Não existem nodos com grau igual a 0, o que quer dizer que existe um caminho entre qualquer par de nodos. Neste caso estamos perante uma rede conexa.
+Não existem nodos com grau igual a 0.
+
+```{r}
+components(rn2)
+```
+
+Só existe um componente, o que quer dizer que existe um caminho entre qualquer par de nodos da rede. Neste caso estamos perante uma rede conexa.
 
 ```{r}
 # Associação de grau
@@ -415,7 +425,34 @@ Que diferenças conseguimos observar entre a questão 1 e a 2? O que é que dá 
 
 -   (Done) JM o impacto que o método *random walk* tem na construção de uma rede aleatória; vantagens e desvantagens dos métodos usados em 1 e 2
 
-Analisando a heterogeneidade de ambas as redes, calculada abaixo, é possível perceber que esta é inferior no caso da primeira rede: obtemos um valor de 1.25 na primeira e 1.42 na segunda. Se em conjugação com isto estudarmos também a distribuição dos graus em cada uma das redes, como é mostrado mais abaixo nos gráficos, conseguimos perceber um pouco melhor as diferenças entre ambas. Qualquer uma delas apresenta valores relativamente baixos para a heterogeneidade, sendo que quanto mais este valor se aproxima de um, maior a tendência para uma distribuição uniforme dos graus dos nodos e menor a probabilidade de encontrarmos hubs. A segunda rede é a que apresenta uma maior heterogeneidade, e enquanto na primeira verificamos a ocorrência de nodos com graus entre 0 e 9, nesta segunda observamos nodos já de maior grau: existe uma oscilação entre um mínimo de grau 2 e um máximo de grau 13. Isto é um reflexo da implementação do algoritmo de Random Walk (Passeio Aleatório) na geração das ligações, ou seja, com um valor de probabilidade suficientemente elevado, obtemos uma rede com maior propensão a ter nodos de maior grau. Eventualmente até a ocorrência de hubs.
+
+Rede       Grau Médio     Conectividade     Componentes     Associação     Distância Média     Diâmetro     Coeficiente 
+                                                                                                            de clustering
+--------   ------------   ---------------   -------------   ------------   -----------------   ----------   --------------
+Rede #1    3.76           Rede Desconexa    5               -0.08082738    3.474123            8            0.03453237
+Rede #2    3.94           Rede Conexa       1               0.004358032    3.675758            7            0.2491694
+---------  ------------   ---------------   -------------   ------------   -----------------   ----------   --------------
+Tab1: Tabela de comparação de valores da caracterização das Redes #1 e #2
+
+
+Ao olharmos para a caracterização de cada rede é possível constatar, que são duas redes distintas no que toca à conectividade, uma é desconexa (Rede #1) e a outra é conexa (Rede #2). 
+
+Ambas têm um grau médio semelhante, próximo de 4. O que quer dizer que a maioria dos nodos da Rede #1 e da Rede #2 têm grau 4.
+
+Na Rede #1 observámos que haviam 4 nodos com grau 0, o que indica que não têm qualquer ligação, por isso concluímos que a rede é desconexa; O mesmo não se verifica na Rede #2, que concluímos ser conexa, uma vez que só tem um componente, ou seja, existe um caminho entre qualquer par de nodos da rede.
+
+Quanto às componentes, verificámos que a Rede #1 era a que tinha mais (5 componentes: 4 nodos isolados e 1 componente gigante composta por 96 nodos); A Rede #2 tinha apenas 1 componente que era composta por todos os nodos da rede.
+
+A associação de grau de ambas as redes é muito próxima de 0, por isso concluímos que não eram redes associativas (não podemos concluir que é uma rede não associativa apenas com base nestes valores).
+
+A distância média das duas redes é grande, pois este valor afasta-se substancialmente de $log10(N)$ = $log10(100)$ = 2 (o número de nodos de ambas as redes é 100). Na Rede #1 a maior distância entre nodos conectados é 8 e na Rede #2 essa distância é 7. A rede com a maior diâmetro é a Rede #1.
+
+Recorrendo ao coeficiente de clustering (rácio entre o número de triângulos e o número total de ternos conexos), percebemos que as duas redes apresentam a existência de triângulos. O rácio da Rede #2 é bastante superior a 0, o que revela a existência de uma quantidade considerável de triângulos. Já a Rede #1 revela um número baixo de triângulos, uma vez que o seu coeficiente de clustering é baixo (está muito próximo de 0).
+
+
+
+Analisando a heterogeneidade de ambas as redes, calculada abaixo, é possível perceber que esta é inferior no caso da primeira rede: obtemos um valor de 1.25 na primeira e 1.42 na segunda. Se em conjugação com isto estudarmos também a distribuição dos graus em cada uma das redes, como é mostrado mais abaixo nos gráficos, conseguimos perceber um pouco melhor as diferenças entre ambas. Qualquer uma delas apresenta valores relativamente baixos para a heterogeneidade, sendo que quanto mais este valor se aproxima de um, maior a tendência para uma distribuição uniforme dos graus dos nodos e menor a probabilidade de encontrarmos hubs. A segunda rede é a que apresenta uma maior heterogeneidade, e enquanto na primeira verificamos a ocorrência de nodos com graus entre 0 e 9, nesta segunda observamos nodos já de maior grau: existe uma oscilação entre um mínimo de grau 2 e um máximo de grau 13. Isto é um reflexo da implementação do algoritmo de Random Walk (Passeio Aleatório) na geração das ligações, ou seja, com um valor de probabilidade suficientemente elevado, obtemos uma rede com maior propensão a ter nodos de maior grau.
+
 Outra observação relevante tem que ver com a frequência da ocorrência de nodos com grau igual a 2 na segunda rede aleatória - 40 dos seus 100 nodos têm grau igual a 2. Aqui é notório o mecanismo do fecho triádico: a formação de triângulos pela união de um novo nodo tanto a um já existente como a um adjacente deste - é no fundo o mecanismo representado pelo ciclo do programa associado à probabilidade p de 0.75.  
 
 ```{r}

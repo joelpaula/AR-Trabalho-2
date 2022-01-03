@@ -231,10 +231,10 @@ min_cut(graph1, value.only = F)
 ## [1] 0
 ## 
 ## $cut
-## + 0/188 edges from 234f8e6:
+## + 0/188 edges from 8adff68:
 ## 
 ## $partition1
-## + 96/100 vertices, from 234f8e6:
+## + 96/100 vertices, from 8adff68:
 ##  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19
 ## [20]  20  21  22  23  24  25  26  28  29  30  31  32  33  34  35  36  37  38  41
 ## [39]  42  43  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61
@@ -243,7 +243,7 @@ min_cut(graph1, value.only = F)
 ## [96] 100
 ## 
 ## $partition2
-## + 4/100 vertices, from 234f8e6:
+## + 4/100 vertices, from 8adff68:
 ## [1] 27 39 40 44
 ```
 
@@ -276,35 +276,35 @@ largest_cliques(graph1)
 
 ```
 ## [[1]]
-## + 3/100 vertices, from 234f8e6:
+## + 3/100 vertices, from 8adff68:
 ## [1] 92 82 63
 ## 
 ## [[2]]
-## + 3/100 vertices, from 234f8e6:
+## + 3/100 vertices, from 8adff68:
 ## [1] 92 82 51
 ## 
 ## [[3]]
-## + 3/100 vertices, from 234f8e6:
+## + 3/100 vertices, from 8adff68:
 ## [1] 85 61 69
 ## 
 ## [[4]]
-## + 3/100 vertices, from 234f8e6:
+## + 3/100 vertices, from 8adff68:
 ## [1] 85 61 60
 ## 
 ## [[5]]
-## + 3/100 vertices, from 234f8e6:
+## + 3/100 vertices, from 8adff68:
 ## [1] 84 32 73
 ## 
 ## [[6]]
-## + 3/100 vertices, from 234f8e6:
+## + 3/100 vertices, from 8adff68:
 ## [1] 80  6 66
 ## 
 ## [[7]]
-## + 3/100 vertices, from 234f8e6:
+## + 3/100 vertices, from 8adff68:
 ## [1] 76  6 72
 ## 
 ## [[8]]
-## + 3/100 vertices, from 234f8e6:
+## + 3/100 vertices, from 8adff68:
 ## [1] 59  5 36
 ```
 
@@ -604,15 +604,15 @@ min_cut(rn2, value.only = F)
 ## [1] 2
 ## 
 ## $cut
-## + 2/197 edges from 2649d37:
+## + 2/197 edges from 8d6237c:
 ## [1] 37--53 31--53
 ## 
 ## $partition1
-## + 1/100 vertex, from 2649d37:
+## + 1/100 vertex, from 8d6237c:
 ## [1] 53
 ## 
 ## $partition2
-## + 99/100 vertices, from 2649d37:
+## + 99/100 vertices, from 8d6237c:
 ##  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19
 ## [20]  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38
 ## [39]  39  40  41  42  43  44  45  46  47  48  49  50  51  52  54  55  56  57  58
@@ -653,303 +653,303 @@ largest_cliques(rn2)
 
 ```
 ## [[1]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 98 31 49
 ## 
 ## [[2]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 97 12 78
 ## 
 ## [[3]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 96 54 59
 ## 
 ## [[4]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 95  4 75
 ## 
 ## [[5]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 94 15 25
 ## 
 ## [[6]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 93  5 86
 ## 
 ## [[7]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 92 15 17
 ## 
 ## [[8]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 91 16 19
 ## 
 ## [[9]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 90  4  6
 ## 
 ## [[10]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 89 31 76
 ## 
 ## [[11]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 86  5  6
 ## 
 ## [[12]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 85 40 69
 ## 
 ## [[13]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 83 21 73
 ## 
 ## [[14]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 82 26 46
 ## 
 ## [[15]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 81  5 57
 ## 
 ## [[16]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 80  1 43
 ## 
 ## [[17]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 79 28 38
 ## 
 ## [[18]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 78 12 65
 ## 
 ## [[19]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 76 31 55
 ## 
 ## [[20]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 75  2  4
 ## 
 ## [[21]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 74  3 10
 ## 
 ## [[22]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 73 21 47
 ## 
 ## [[23]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 72 10 65
 ## 
 ## [[24]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 71 18 36
 ## 
 ## [[25]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 68 29 51
 ## 
 ## [[26]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 67  9 27
 ## 
 ## [[27]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 65 10 12
 ## 
 ## [[28]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 64 28 38
 ## 
 ## [[29]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 61 24 35
 ## 
 ## [[30]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 60 42 56
 ## 
 ## [[31]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 59 33 54
 ## 
 ## [[32]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 57  5  7
 ## 
 ## [[33]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 56 14 42
 ## 
 ## [[34]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 51  6 29
 ## 
 ## [[35]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 50  3 18
 ## 
 ## [[36]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 49 17 31
 ## 
 ## [[37]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 48 15 25
 ## 
 ## [[38]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 46 24 26
 ## 
 ## [[39]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 45 20 42
 ## 
 ## [[40]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 44 10 35
 ## 
 ## [[41]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 43  1 26
 ## 
 ## [[42]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 42 14 20
 ## 
 ## [[43]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 41 29 37
 ## 
 ## [[44]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 40  1 26
 ## 
 ## [[45]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 39  3  4
 ## 
 ## [[46]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 38  2 28
 ## 
 ## [[47]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 37  6 29
 ## 
 ## [[48]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 36  3 18
 ## 
 ## [[49]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 35 10 24
 ## 
 ## [[50]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 34  6  7
 ## 
 ## [[51]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 29  5  6
 ## 
 ## [[52]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 28  2 15
 ## 
 ## [[53]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 27  9 16
 ## 
 ## [[54]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 26  1 24
 ## 
 ## [[55]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 23 11 13
 ## 
 ## [[56]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 22  1  3
 ## 
 ## [[57]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 21 14 20
 ## 
 ## [[58]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 19  9 16
 ## 
 ## [[59]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 18  2  3
 ## 
 ## [[60]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 16  7  9
 ## 
 ## [[61]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1]  8 87 14
 ## 
 ## [[62]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1]  8 66 14
 ## 
 ## [[63]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1]  8 62 12
 ## 
 ## [[64]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1]  8 14 12
 ## 
 ## [[65]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1]  8 13 11
 ## 
 ## [[66]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1]  8 12 10
 ## 
 ## [[67]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1]  8 11  9
 ## 
 ## [[68]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1]  8  7 33
 ## 
 ## [[69]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 8 7 9
 ## 
 ## [[70]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 8 7 6
 ## 
 ## [[71]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 5 7 6
 ## 
 ## [[72]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 5 4 6
 ## 
 ## [[73]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 5 4 3
 ## 
 ## [[74]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 4 2 3
 ## 
 ## [[75]]
-## + 3/100 vertices, from 2649d37:
+## + 3/100 vertices, from 8d6237c:
 ## [1] 3 1 2
 ```
 
@@ -1047,4 +1047,77 @@ Que diferenças conseguimos observar entre a questão 1 e a 2? O que é que dá 
 
 -   JP sobre as comunidades
 
--   JM o impacto que o método *random walk* tem na construção de uma rede aleatória; vantagens e desvantagens dos métodos usados em 1 e 2
+-   (Done) JM o impacto que o método *random walk* tem na construção de uma rede aleatória; vantagens e desvantagens dos métodos usados em 1 e 2
+
+
+Rede       Grau Médio     Conectividade     Componentes     Associação     Distância Média     Diâmetro     Coeficiente 
+                                                                                                            de clustering
+--------   ------------   ---------------   -------------   ------------   -----------------   ----------   --------------
+Rede #1    3.76           Rede Desconexa    5               -0.08082738    3.474123            8            0.03453237
+Rede #2    3.94           Rede Conexa       1               0.004358032    3.675758            7            0.2491694
+---------  ------------   ---------------   -------------   ------------   -----------------   ----------   --------------
+Tab1: Tabela de comparação de valores da caracterização das Redes #1 e #2
+
+
+Ao olharmos para a caracterização de cada rede é possível constatar, que são duas redes distintas no que toca à conectividade, uma é desconexa (Rede #1) e a outra é conexa (Rede #2). 
+Ambas têm um grau médio semelhante, próximo de 4. O que quer dizer que a maioria dos nodos da Rede #1 e da Rede #2 têm grau 4.
+Na Rede #1 observámos que haviam 4 nodos com grau 0, o que indica que não têm qualquer ligação, por isso concluímos que a rede é desconexa; O mesmo não se verifica na Rede #2, que concluímos ser conexa, uma vez que não existíam nodos com grau igual a 0, ou seja, existe um caminho entre qualquer par de nodos da rede.
+Quanto às componentes, verificámos que a Rede #1 era a que tinha mais (5 componentes: 4 nodos isolados e 1 componente gigante composta por 96 nodos); A Rede #2 tinha apenas 1 componente que era composta por todos os nodos da rede.
+A associação de grau de ambas as redes é muito próxima de 0, por isso concluímos que não eram redes associativas (não podemos concluir que é uma rede não associativa apenas com base nestes valores).
+A distância média das duas redes é grande, pois este valor afasta-se substancialmente de $log10(N)$ = $log10(100)$ = 2 (o número de nodos de ambas as redes é 100). Na Rede #1 a maior distância entre nodos conectados é 8 e na Rede #2 essa distância é 7. A rede com a maior diâmetro é a Rede #1.
+Recorrendo ao coeficiente de clustering (rácio entre o número de triângulos e o número total de ternos conexos), percebemos que as duas redes apresentam a existência de triângulos. O rácio da Rede #2 é bastante superior a 0, o que revela a existência de uma quantidade considerável de triângulos. Já a Rede #1 revela um número baixo de triângulos, uma vez que o seu coeficiente de clustering é baixo (está muito próximo de 0).
+
+
+
+Analisando a heterogeneidade de ambas as redes, calculada abaixo, é possível perceber que esta é inferior no caso da primeira rede: obtemos um valor de 1.25 na primeira e 1.42 na segunda. Se em conjugação com isto estudarmos também a distribuição dos graus em cada uma das redes, como é mostrado mais abaixo nos gráficos, conseguimos perceber um pouco melhor as diferenças entre ambas. Qualquer uma delas apresenta valores relativamente baixos para a heterogeneidade, sendo que quanto mais este valor se aproxima de um, maior a tendência para uma distribuição uniforme dos graus dos nodos e menor a probabilidade de encontrarmos hubs. A segunda rede é a que apresenta uma maior heterogeneidade, e enquanto na primeira verificamos a ocorrência de nodos com graus entre 0 e 9, nesta segunda observamos nodos já de maior grau: existe uma oscilação entre um mínimo de grau 2 e um máximo de grau 13. Isto é um reflexo da implementação do algoritmo de Random Walk (Passeio Aleatório) na geração das ligações, ou seja, com um valor de probabilidade suficientemente elevado, obtemos uma rede com maior propensão a ter nodos de maior grau.
+
+Outra observação relevante tem que ver com a frequência da ocorrência de nodos com grau igual a 2 na segunda rede aleatória - 40 dos seus 100 nodos têm grau igual a 2. Aqui é notório o mecanismo do fecho triádico: a formação de triângulos pela união de um novo nodo tanto a um já existente como a um adjacente deste - é no fundo o mecanismo representado pelo ciclo do programa associado à probabilidade p de 0.75.  
+
+
+```r
+print("Heterogeneidade da rede aleatória da Questão 1 (Erdös-Rénui com probabilidade uniforme):")
+```
+
+```
+## [1] "Heterogeneidade da rede aleatória da Questão 1 (Erdös-Rénui com probabilidade uniforme):"
+```
+
+```r
+(heterogeneidade1 <- mean(degree(graph1)^2)/(mean(degree(graph1))^2)) # heterogeneidade da rede da questão 1
+```
+
+```
+## [1] 1.249151
+```
+
+```r
+print("Heterogeneidade da rede aleatória da Questão 2 (Aleatória pelo Método de Random Walk)")
+```
+
+```
+## [1] "Heterogeneidade da rede aleatória da Questão 2 (Aleatória pelo Método de Random Walk)"
+```
+
+```r
+(heterogeneidade2 <- mean(degree(rn2)^2)/(mean(degree(rn2))^2)) # heterogeneidade da rede da questão 2
+```
+
+```
+## [1] 1.417197
+```
+
+
+```r
+# Representações gráficas da distribuição dos graus dos nodos em cada uma das redes aleatórias:
+
+plot(table(degree(graph1)), main="Distribuição de Grau na Rede Erdös-Rénui com Probabilidade Uniforme (Questão 1)", xlab = "Grau de Nodo", ylab = "Nº de Ocorrências na Rede")
+```
+
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-35-1.png)<!-- -->
+
+```r
+plot(table(degree(rn2)), main="Distribuição de Grau na Rede Aleatória pelo Método de Random Walk (Questão 2)", xlab = "Grau de Nodo", ylab = "Nº de Ocorrências na Rede")
+```
+
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-35-2.png)<!-- -->
+
