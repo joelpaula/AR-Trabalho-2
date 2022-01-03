@@ -6,11 +6,12 @@ author:
 - Joel Paula, 93392
 date: "03/01/2022"
 output:
-  html_document: 
-    keep_md: yes
+  pdf_document: 
     fig_width: 16
     fig_height: 9
-  pdf_document: 
+    toc: yes
+  html_document: 
+    keep_md: yes
     fig_width: 16
     fig_height: 9
   word_document: 
@@ -52,14 +53,16 @@ knitr::opts_chunk$set(echo = TRUE)
 library(knitr)
 library(igraph)
 ```
+
+\newpage
+
 # Introdução
 
-Este trabalho leva-nos a estudar dus redes aleatórias, aparentemente com caracter+isticas de base comuns (grau médio e número de nodos) .... TODO
+Este trabalho leva-nos a estudar duas redes aleatórias, aparentemente com características de base comuns (grau médio e número de nodos), mas que fruto dos diferentes algoritmos de geração de cada rede, manifestam características intrínsecas diferentes, nomeadamente no que toca à existência de comunidades.
 
+# QUESTÃO 1
 
-# QUESTÃO 1:
-
-> Suponha que pretende gerar uma rede aleatória não orientada com 100 nodos e grau médio aproximadamente igual a 4. Qual deve ser a probabilidade utilizada na geração da rede?
+> Suponha que pretende gerar uma rede aleatória não orientada com 100 nodos e grau médio  aproximadamente igual a 4. Qual deve ser a probabilidade utilizada na geração da rede?
 > Gere esta rede.
 
 O grau médio seria de aproximadamente 100, se todos os nodos estivessem ligados entre si. Neste caso teremos uma probabilidade de 4% - que cada nodo esteja ligado apenas a 4 dos 100 nodos.
@@ -96,7 +99,8 @@ plot(graph1,  vertex.size=3+degrees*2, edge.color="orange4"
      )
 ```
 
-> Caracterize esta rede quanto ao grau médio dos nodos, à conectividade, distância média e existência de triângulos. Aplique ainda métodos de identificação de comunidades.
+> Caracterize esta rede quanto ao grau médio dos nodos, à conectividade, distância média e
+> existência de triângulos. Aplique ainda métodos de identificação de comunidades.
 
 ## Grau Médio
 
@@ -110,16 +114,20 @@ O grau médio é próximo de 4, tal como esperaríamos.
 ## Conectividade
 
 ```{r}
+# Conectividade
 degree(graph1)
 ```
 
-Vemos que existem 4 nodos com grau zero, o que indica que não têm qualquer ligação. Neste caso estamos perante uma rede desconexa.
+Vemos que existem 4 nodos com grau zero, o que indica que não têm qualquer ligação. Neste
+caso estamos perante uma rede desconexa.
 
-Portanto, existem 4 nodos isolados e uma componente gigante.
+## Componentes
 
 ```{r}
 components(graph1)
 ```
+
+Portanto, existem 4 nodos isolados e uma componente gigante.
 
 ## Associação
 
@@ -128,16 +136,20 @@ components(graph1)
 assortativity_degree(graph1) 
 ```
 
-É negativo mas muito próximo de zero, por isso não é um rede associativa mas também não se pode concluir que é Não associativa.
+É negativo mas muito próximo de zero, por isso não é um rede associativa mas também não se
+pode concluir que é Não associativa.
 
-Vamos olhar agora para o método de medição da associação de grau com base no grau médio dos nodos adjacentes:
+Vamos olhar agora para o método de medição da associação de grau com base no grau médio
+dos nodos adjacentes:
 
 ```{r}
 knn(graph1)$knnk
 
 ```
 
-A função tem uma tendência decrescente, mas não estritamente decrescente, oscilando. Por isso mantemos que não é uma rede associativa mas também não pode ser classificada como não associativa.
+A função tem uma tendência decrescente, mas não estritamente decrescente, oscilando. Por
+isso mantemos que não é uma rede associativa mas também não pode ser classificada como não
+associativa.
 
 ## Distância média
 
@@ -162,7 +174,8 @@ A maior distância entre nodos (conectados) é de 8.
 transitivity(graph1, type="global")
 ```
 
-É um número baixo de triângulos, já que o coeficiente de *clustering* é um rácio entre o número de triângulos e o número total de ternos conexos e este é baixo.
+É um número baixo de triângulos, já que o coeficiente de *clustering* é um rácio entre o
+número de triângulos e o número total de ternos conexos e este é baixo.
 
 ## Identificação de comunidades
 
@@ -172,7 +185,8 @@ Usando o método do corte mínimo:
 min_cut(graph1, value.only = F)
 ```
 
-Temos um conjunto com os nodos ligados (a componente gigante) e um outro com os nodos isolados. Com um corte de dimensão zero.
+Temos um conjunto com os nodos ligados (a componente gigante) e um outro com os nodos
+isolados. Com um corte de dimensão zero.
 
 Usando o método das cliques:
 
@@ -181,13 +195,16 @@ sapply(cliques(graph1),length)
 
 ```
 
-As cliques parecem fazer divisões muito pequenas, de 1, 2 ou 3 nodos. Sendo que as maiores cliques têm 3 nodos. O número excessivo de comunidades é um dos problemas conhecidos deste algoritmo.
+As cliques parecem fazer divisões muito pequenas, de 1, 2 ou 3 nodos. Sendo que as maiores
+cliques têm 3 nodos. O número excessivo de comunidades é um dos problemas conhecidos deste
+algoritmo.
 
 ```{r}
 largest_cliques(graph1)
 ```
 
 Função que mostra dados sobre *clusters*:
+
 ```{r}
 show.cluster <- function(g1, cl) {
   plot(cl, g1
@@ -207,13 +224,13 @@ show.cluster <- function(g1, cl) {
 }
 ```
 
-Verificando o método de clustering pela remoção de pontes:
+Verificando o método de *clustering* pela remoção de pontes:
 
 ```{r}
 show.cluster(graph1, cluster_edge_betweenness(graph1))
 ```
 
-Usando o método de clustering pela propagação de etiquetas:
+Usando o método de *clustering* pela propagação de etiquetas:
 
 ```{r}
 set.seed(42)
@@ -228,7 +245,7 @@ Usando o método da otimização de modularidade:
 show.cluster(graph1, cluster_fast_greedy(graph1))
 ```
 
-# QUESTÃO 2:
+# QUESTÃO 2
 
 > Utilize o programa seguinte para gerar a rede aleatória rn2:
 
@@ -259,7 +276,9 @@ for (i in 1:91) {
 
 > Qual o método utilizado nesta geração? Justifique.
 
-O método utilizado nesta geração é o Modelo do Passeio Aleatório. Neste método, começamos a criação de uma rede aleatória a partir de uma pequena sub-rede - no programa temos uma subrede conexa composta por 9 nodos, com a representação abaixo:
+O método utilizado nesta geração é o Modelo do Passeio Aleatório. Neste método, começamos
+a criação de uma rede aleatória a partir de uma pequena sub-rede - no programa temos uma
+subrede conexa composta por 9 nodos, com a representação abaixo:
 
 ```{r}
 set.seed(42)
@@ -273,21 +292,36 @@ plot(graph(edge=c(1,2,1,3,2,3,3,4,3,5,4,5,5,6,5,7,6,7,7,8,7,9,8,9,2,4,4,6,6,8),d
      , main="Sub-rede conectada, de partida")
 ```
 
-Na prática, a rede gerada pelo programa contém já os 100 nodos que se pretende utilizar, mas os restantes 91 não têm, na fase inicial, ainda qualquer ligação. Com a construção da rede aleatória eles serão iterativamente adicionados. Em cada iteração, ou seja, por cada um dos 91 nodos que serão adicionados à subrede conexa já existente, temos:
+Na prática, a rede gerada pelo programa contém já os 100 nodos que se pretende utilizar,
+mas os restantes 91 não têm, na fase inicial, ainda qualquer ligação. Com a construção da
+rede aleatória eles serão iterativamente adicionados. Em cada iteração, ou seja, por cada
+um dos 91 nodos que serão adicionados à subrede conexa já existente, temos:
 
--   o método selecciona aleatoriamente a partir de uma distribuição uniforme um dos nodos da subrede ("new"), e identifica quais os respectivos nodos adjacentes. Cria entretanto uma ligação entre o nodo seleccionado e o próximo a ser integrado na sub-rede (ou seja, um nodo do subconjunto que têm grau zero; na primeira iteração, por exemplo, cria uma nova ligação entre o nodo 10 e um dos da subrede conexa);
+-   o método selecciona aleatoriamente a partir de uma distribuição uniforme um dos nodos
+    da subrede ("new"), e identifica quais os respectivos nodos adjacentes. Cria
+    entretanto uma ligação entre o nodo seleccionado e o próximo a ser integrado na
+    sub-rede (ou seja, um nodo do subconjunto que têm grau zero; na primeira iteração, por
+    exemplo, cria uma nova ligação entre o nodo 10 e um dos da subrede conexa);
 
--   é gerado um número aleatório que dita uma probabilidade (p = 0.75 e q = 0.25), que é usada da seguinte forma:
+-   é gerado um número aleatório que dita uma probabilidade (p = 0.75 e q = 0.25), que é
+    usada da seguinte forma:
 
-    -   se obtivermos p (com probabilidade de 75%), então é criada mais uma ligação entre o novo nodo e um dos adjacentes de "new" (já identificado no início da iteração) - criando um triângulo;
+    -   se obtivermos p (com probabilidade de 75%), então é criada mais uma ligação entre
+        o novo nodo e um dos adjacentes de "new" (já identificado no início da iteração) -
+        criando um triângulo;
 
-    -   se obtivermos q (1-p), então é criada mais uma ligação entre o novo nodo e um dos já pertencentes à subrede conexa, seleccionado aleatoriamente a partir de uma distribuição uniforme;
+    -   se obtivermos q (1-p), então é criada mais uma ligação entre o novo nodo e um dos
+        já pertencentes à subrede conexa, seleccionado aleatoriamente a partir de uma
+        distribuição uniforme;
 
-Este método termina quando todos os 91 nodos tiverem sido adicionados à rede através da criação das ligações.
+Este método termina quando todos os 91 nodos tiverem sido adicionados à rede através da
+criação das ligações.
 
-Este é um método de geração de redes aleatórias que não escolhe os nodos adjacentes com base no seu grau. Esta escolha é aleatória.
+Este é um método de geração de redes aleatórias que não escolhe os nodos adjacentes com
+base no seu grau. Esta escolha é aleatória.
 
-> Caracterize esta rede quanto ao grau médio dos nodos, à conectividade, distância média e existência de triângulos. Aplique ainda métodos de identificação de comunidades.
+> Caracterize esta rede quanto ao grau médio dos nodos, à conectividade, distância média e
+> existência de triângulos. Aplique ainda métodos de identificação de comunidades.
 
 ```{r}
 set.seed(42)
@@ -306,12 +340,16 @@ plot(rn2,  vertex.size=degrees*2, edge.color="orange4"
      )
 ```
 
+## Grau Médio
+
 ```{r}
 # Grau médio
 mean(degree(rn2))
 ```
 
 O grau médio é próximo de 4, em semelhança à primeira rede.
+
+## Conectividade
 
 ```{r}
 # Conectividade
@@ -320,47 +358,55 @@ degree(rn2)
 
 Não existem nodos com grau igual a 0.
 
+## Componentes
+
 ```{r}
 components(rn2)
 ```
 
-Só existe um componente, o que quer dizer que existe um caminho entre qualquer par de nodos da rede. Neste caso estamos perante uma rede conexa.
+Só existe uma componente, o que quer dizer que existe um caminho entre qualquer par de
+nodos da rede. Neste caso estamos perante uma rede conexa.
+
+## Associação
 
 ```{r}
 # Associação de grau
 assortativity_degree(rn2) 
 ```
 
-É muito próximo de zero, por isso não é um rede associativa mas também não se pode concluir que é Não associativa.
+É muito próximo de zero, por isso não é um rede associativa mas também não se pode
+concluir que é Não associativa.
 
 ```{r}
 knn(rn2)$knnk
 ```
 
+De igual forma, usando o método de medição da associação de grau com base no grau médio
+dos nodos adjacentes, mantemos a mesma conclusão.
+
+## Distância média
+
 ```{r}
 # Distância média
 mean_distance(rn2)
-```
-
-```{r}
 log10(100)
-```
-
-A distância média é grande, já que se afasta substancialmente de $log10(N)$.
-
-```{r}
 # Diâmetro
 diameter(rn2)
 ```
 
+A distância média é grande, já que se afasta substancialmente de $log10(N)$.
+
 A maior distância entre nodos (conectados) é de 7.
+
+## Existência de triângulos
 
 ```{r}
 # Existência de triângulos
 transitivity(rn2, type = "global")
 ```
 
-O rácio é bastante superior a zero, embora não se aproxime de 1 - revela a existência de bastantes triângulos.
+O rácio é bastante superior a zero, embora não se aproxime de 1 - revela a existência de
+bastantes triângulos.
 
 ## Identificação de comunidades
 
@@ -371,7 +417,8 @@ set.seed(42)
 min_cut(rn2, value.only = F)
 ```
 
-Mais uma vez, este método separa a rede em dois com dimensão dois - uma componente gigante e um nodo isolado.
+Mais uma vez, este método separa a rede em dois com dimensão dois - uma componente gigante
+e um nodo isolado.
 
 Usando o método das cliques:
 
@@ -380,7 +427,9 @@ sapply(cliques(rn2),length)
 
 ```
 
-As cliques parecem fazer divisões muito pequenas, de 1, 2 ou 3 nodos. Sendo que as maiores cliques têm 3 nodos. O número excessivo de comunidades é um problema conhecido deste algoritmo.
+As cliques parecem fazer divisões muito pequenas, de 1, 2 ou 3 nodos. Sendo que as maiores
+cliques têm 3 nodos. O número excessivo de comunidades é um problema conhecido deste
+algoritmo.
 
 ```{r}
 largest_cliques(rn2)
@@ -407,69 +456,122 @@ Usando o método da otimização de modularidade:
 show.cluster(rn2, cluster_fast_greedy(rn2))
 ```
 
-# QUESTÃO 3:
+# QUESTÃO 3
 
 > Compare e comente os resultados obtidos nas questões anteriores.
 
-Que diferenças conseguimos observar entre a questão 1 e a 2? O que é que dá para concluir?
++------+--------+---------------+-------------+------------+------------+----------+-----------------+
+| Rede | Grau   | Conectividade | Componentes | Associação | Distância\ | Diâmetro | Coeficiente\    |
+|      | Médio  |               |             |            | Média      |          | de *clustering* |
++======+========+===============+=============+============+============+==========+=================+
+| \#1  | 3.76   | Rede Desconexa| 5           | -0.080827  | 3.474123   | 8        | 0.034532        |
++------+--------+---------------+-------------+------------+------------+----------+-----------------+
+| \#2  | 3.94   | Rede Conexa   | 1           | 0.004358   | 3.675758   | 7        | 0.249169        |
++------+--------+---------------+-------------+------------+------------+----------+-----------------+
+> Tab. 1: Tabela de comparação de valores da caracterização das Redes \#1 e \#2
 
--   CC sobre a associação de grau
+Ao olharmos para a caracterização de cada rede é possível constatar, que são duas redes
+distintas no que toca à conectividade, uma é desconexa (Rede \#1) e a outra é conexa (Rede
+\#2).
 
--   CC sobre a distância média
+Ambas têm um grau médio semelhante, próximo de 4. Não é de grande surpresa, já que ambas as redes têm sensivelmente o mesmo número de ligações (aproximadamente 200) e o memso número de nodos.
 
--   CC sobre o diâmetro
+Na Rede \#1 observámos que haviam 4 nodos com grau 0, o que indica que não têm qualquer
+ligação, por isso concluímos que a rede é desconexa; O mesmo não se verifica na Rede \#2,
+que concluímos ser conexa, uma vez que só tem um componente, ou seja, existe um caminho
+entre qualquer par de nodos da rede.
 
--   CC sobre a existência de triângulos
+Quanto às componentes, verificámos que a Rede \#1 era a que tinha mais (5 componentes: 4
+nodos isolados e 1 componente gigante composta por 96 nodos); A Rede \#2 tinha apenas 1
+componente que era composta por todos os nodos da rede.
 
--   JP sobre as comunidades
+A associação de grau de ambas as redes é muito próxima de 0, por isso concluímos que não
+eram redes associativas (não podemos concluir que é uma rede não associativa apenas com
+base nestes valores).
 
--   (Done) JM o impacto que o método *random walk* tem na construção de uma rede aleatória; vantagens e desvantagens dos métodos usados em 1 e 2
+A distância média das duas redes é grande, pois este valor afasta-se substancialmente de
+$log10(N) = log10(100) = 2$ (o número de nodos de ambas as redes é 100). Na Rede \#1 a
+maior distância entre nodos conectados é 8 e na Rede \#2 essa distância é 7. A rede com a
+maior diâmetro é a Rede \#1.
 
+Recorrendo ao coeficiente de *clustering* (rácio entre o número de triângulos e o número
+total de ternos conexos), percebemos que as duas redes apresentam a existência de
+triângulos. O rácio da Rede \#2 é bastante superior a 0, o que revela a existência de uma
+quantidade considerável de triângulos. Já a Rede \#1 revela um número baixo de triângulos,
+uma vez que o seu coeficiente de *clustering* é baixo (está muito próximo de 0).
 
-+----------+------------+---------------+-------------+------------+-----------------+----------+---------------------------+
-| Rede     | Grau Médio | Conectividade | Componentes | Associação | Distância Média | Diâmetro | Coeficiente de clustering |
-+==========+============+===============+=============+============+=================+==========+===========================+
-| Rede \#1 | 3.76       | Rede Desconexa| 5           | -0.08082738| 3.474123        | 8        | 0.03453237                |
-+----------+------------+---------------+-------------+------------+-----------------+----------+---------------------------+
-| Rede \#2 | 3.94       | Rede Conexa   | 1           | 0.004358032| 3.675758        | 7        | 0.2491694                 |
-+----------+------------+---------------+-------------+------------+-----------------+----------+---------------------------+
+Na deteção de cliques - um algoritmo que se baseia na coesão e não na separação e que é
+conhecido por particionar a rede num número excessivo de comunidades - ambas as redes
+apresentam um número muito grande de cliques (subredes completas), que se sobrepõem. A
+rede 2 apresenta um número superior de cliques, acima de tudo porque apresenta um número
+superior de triângulos (ternos conexos fechados), já que o algoritmo cria esses triângulos
+explicitamente com uma probabilidade elevada (p = 0.75). De resto, para ambos os casos não
+estamos perante grandes cliques - no máximo de três elementos por clique - já que é uma
+rede gerada aleatoriamente e com um grau médio de 4, o que a torna uma rede esparsa (L
+aproximadamente 200 é muito menor que Lmax de 4950), não dando grande probabilidade à
+formação de subredes completas.
 
-Tab1: Tabela de comparação de valores da caracterização das Redes #1 e #2
+Os métodos de deteção de comunidades através da remoção de pontes e de otimização de
+modularidade parecem funcionar praticamente com a mesma eficiência em ambas as redes, a
+avaliar pela pequena diferença dos valores de modularidade obtidos para cada algoritmo na
+mesma rede. Verificamos que o número de comunidades é bastante mais elevado no caso da
+rede #1, já que esta é a mais esparsa e também tem um menor número de tríades.
 
++------------+-------------------------+-----------------------------------+
+| Rede       | Número de clusters      | Algoritmo                         |
++============+=========================+===================================+
+| Rede \#1   | 15                      | otimização de modularidade        |
++------------+-------------------------+-----------------------------------+
+| Rede \#2   | 9                       | remoção de pontes                 |
++------------+-------------------------+-----------------------------------+
+> Tab. 2: melhor algoritmo de deteção de comunidades, de acordo com medida de modularidade
 
-Ao olharmos para a caracterização de cada rede é possível constatar, que são duas redes distintas no que toca à conectividade, uma é desconexa (Rede #1) e a outra é conexa (Rede #2). 
+Um ponto interessante é notar que apesar de o algoritmo de geração da Rede #2 partir com
+uma subrede (nodos 1 a 9) fortemente candidata a comunidade, estes nunca são selecionados
+pelos algoritmos para uma única comunidade, já que as ligações adicionadas aleatoriamente entre
+estes e os restantes acabam por eliminar o grau de separação desta componente inicial de
+outras componentes da rede.
 
-Ambas têm um grau médio semelhante, próximo de 4. O que quer dizer que a maioria dos nodos da Rede #1 e da Rede #2 têm grau 4.
+Analisando a heterogeneidade de ambas as redes, calculada abaixo, é possível perceber que
+esta é inferior no caso da primeira rede: obtemos um valor de 1.25 na primeira e 1.42 na
+segunda. Se em conjugação com isto estudarmos também a distribuição dos graus em cada uma
+das redes, como é mostrado mais abaixo nos gráficos, conseguimos perceber um pouco melhor
+as diferenças entre ambas. Qualquer uma delas apresenta valores relativamente baixos para
+a heterogeneidade, sendo que quanto mais este valor se aproxima de um, maior a tendência
+para uma distribuição uniforme dos graus dos nodos e menor a probabilidade de encontrarmos
+*hubs*. A segunda rede é a que apresenta uma maior heterogeneidade, e enquanto na primeira
+verificamos a ocorrência de nodos com graus entre 0 e 9, nesta segunda observamos nodos já
+de maior grau: existe uma oscilação entre um mínimo de grau 2 e um máximo de grau 13. Isto
+é um reflexo da implementação do algoritmo de *Random Walk* (Passeio Aleatório) na geração
+das ligações, ou seja, com um valor de probabilidade suficientemente elevado, obtemos uma
+rede com maior propensão a ter nodos de maior grau.
 
-Na Rede #1 observámos que haviam 4 nodos com grau 0, o que indica que não têm qualquer ligação, por isso concluímos que a rede é desconexa; O mesmo não se verifica na Rede #2, que concluímos ser conexa, uma vez que só tem um componente, ou seja, existe um caminho entre qualquer par de nodos da rede.
-
-Quanto às componentes, verificámos que a Rede #1 era a que tinha mais (5 componentes: 4 nodos isolados e 1 componente gigante composta por 96 nodos); A Rede #2 tinha apenas 1 componente que era composta por todos os nodos da rede.
-
-A associação de grau de ambas as redes é muito próxima de 0, por isso concluímos que não eram redes associativas (não podemos concluir que é uma rede não associativa apenas com base nestes valores).
-
-A distância média das duas redes é grande, pois este valor afasta-se substancialmente de $log10(N) = log10(100) = 2$ (o número de nodos de ambas as redes é 100). Na Rede #1 a maior distância entre nodos conectados é 8 e na Rede #2 essa distância é 7. A rede com a maior diâmetro é a Rede #1.
-
-Recorrendo ao coeficiente de *clustering* (rácio entre o número de triângulos e o número total de ternos conexos), percebemos que as duas redes apresentam a existência de triângulos. O rácio da Rede #2 é bastante superior a 0, o que revela a existência de uma quantidade considerável de triângulos. Já a Rede #1 revela um número baixo de triângulos, uma vez que o seu coeficiente de *clustering* é baixo (está muito próximo de 0).
-
-
-
-Analisando a heterogeneidade de ambas as redes, calculada abaixo, é possível perceber que esta é inferior no caso da primeira rede: obtemos um valor de 1.25 na primeira e 1.42 na segunda. Se em conjugação com isto estudarmos também a distribuição dos graus em cada uma das redes, como é mostrado mais abaixo nos gráficos, conseguimos perceber um pouco melhor as diferenças entre ambas. Qualquer uma delas apresenta valores relativamente baixos para a heterogeneidade, sendo que quanto mais este valor se aproxima de um, maior a tendência para uma distribuição uniforme dos graus dos nodos e menor a probabilidade de encontrarmos *hubs*. A segunda rede é a que apresenta uma maior heterogeneidade, e enquanto na primeira verificamos a ocorrência de nodos com graus entre 0 e 9, nesta segunda observamos nodos já de maior grau: existe uma oscilação entre um mínimo de grau 2 e um máximo de grau 13. Isto é um reflexo da implementação do algoritmo de *Random Walk* (Passeio Aleatório) na geração das ligações, ou seja, com um valor de probabilidade suficientemente elevado, obtemos uma rede com maior propensão a ter nodos de maior grau.
-
-Outra observação relevante tem que ver com a frequência da ocorrência de nodos com grau igual a 2 na segunda rede aleatória - 40 dos seus 100 nodos têm grau igual a 2. Aqui é notório o mecanismo do fecho triádico: a formação de triângulos pela união de um novo nodo tanto a um já existente como a um adjacente deste - é no fundo o mecanismo representado pelo ciclo do programa associado à probabilidade p de 0.75.  
+Outra observação relevante tem que ver com a frequência da ocorrência de nodos com grau
+igual a 2 na segunda rede aleatória - 40 dos seus 100 nodos têm grau igual a 2. Aqui é
+notório o mecanismo do fecho triádico: a formação de triângulos pela união de um novo nodo
+tanto a um já existente como a um adjacente deste - é no fundo o mecanismo representado
+pelo ciclo do programa associado à probabilidade p de 0.75.
 
 ```{r}
 print("Heterogeneidade da rede aleatória da Questão 1 (Erdös-Rénui com probabilidade uniforme):")
-(heterogeneidade1 <- mean(degree(graph1)^2)/(mean(degree(graph1))^2)) # heterogeneidade da rede da questão 1
+(heterogeneidade1 <- mean(degree(graph1)^2)
+  /(mean(degree(graph1))^2)) # heterogeneidade da rede da questão 1
 
 print("Heterogeneidade da rede aleatória da Questão 2 (Aleatória pelo Método de Random Walk)")
-(heterogeneidade2 <- mean(degree(rn2)^2)/(mean(degree(rn2))^2)) # heterogeneidade da rede da questão 2
+(heterogeneidade2 <- mean(degree(rn2)^2)
+  /(mean(degree(rn2))^2)) # heterogeneidade da rede da questão 2
 ```
 
 ```{r}
 # Representações gráficas da distribuição dos graus dos nodos em cada uma das redes aleatórias:
 
-plot(table(degree(graph1)), main="Distribuição de Grau na Rede Erdös-Rénui com Probabilidade Uniforme (Questão 1)", xlab = "Grau de Nodo", ylab = "Nº de Ocorrências na Rede")
+plot(table(degree(graph1))
+     , main="Distribuição de Grau na Rede Erdös-Rénui com Probabilidade Uniforme (Questão 1)"
+     , xlab = "Grau de Nodo"
+     , ylab = "Nº de Ocorrências na Rede")
 
-plot(table(degree(rn2)), main="Distribuição de Grau na Rede Aleatória pelo Método de Random Walk (Questão 2)", xlab = "Grau de Nodo", ylab = "Nº de Ocorrências na Rede")
+plot(table(degree(rn2))
+     , main="Distribuição de Grau na Rede Aleatória pelo Método de Random Walk (Questão 2)"
+     , xlab = "Grau de Nodo"
+     , ylab = "Nº de Ocorrências na Rede")
 ```
-
