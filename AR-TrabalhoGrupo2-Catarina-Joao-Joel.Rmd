@@ -31,6 +31,22 @@ editor_options:
     wrap: 90
 ---
 
+```{css, echo=FALSE}
+#header {
+  background-image: url("rgb_iscte_pt_horizontal_positive.png");
+  background-size: 300px;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  padding-top: 95px;
+}
+#header > * {
+  max-width: calc(100% - 225px);
+}
+#header > *
+  max-width: 100%;
+}
+```
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(knitr)

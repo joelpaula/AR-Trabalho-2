@@ -31,6 +31,22 @@ editor_options:
     wrap: 90
 ---
 
+<style type="text/css">
+#header {
+  background-image: url("rgb_iscte_pt_horizontal_positive.png");
+  background-size: 300px;
+  background-repeat: no-repeat;
+  background-position: 0px 0px;
+  padding-top: 95px;
+}
+#header > * {
+  max-width: calc(100% - 225px);
+}
+#header > *
+  max-width: 100%;
+}
+</style>
+
 
 
 # QUESTÃO 1:
@@ -73,7 +89,7 @@ plot(graph1,  vertex.size=3+degrees*2, edge.color="orange4"
      )
 ```
 
-![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-2-1.png)<!-- -->
 
 > Caracterize esta rede quanto ao grau médio dos nodos, à conectividade, distância média e existência de triângulos. Aplique ainda métodos de identificação de comunidades.
 
@@ -215,10 +231,10 @@ min_cut(graph1, value.only = F)
 ## [1] 0
 ## 
 ## $cut
-## + 0/188 edges from d204a7e:
+## + 0/188 edges from 234f8e6:
 ## 
 ## $partition1
-## + 96/100 vertices, from d204a7e:
+## + 96/100 vertices, from 234f8e6:
 ##  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19
 ## [20]  20  21  22  23  24  25  26  28  29  30  31  32  33  34  35  36  37  38  41
 ## [39]  42  43  45  46  47  48  49  50  51  52  53  54  55  56  57  58  59  60  61
@@ -227,7 +243,7 @@ min_cut(graph1, value.only = F)
 ## [96] 100
 ## 
 ## $partition2
-## + 4/100 vertices, from d204a7e:
+## + 4/100 vertices, from 234f8e6:
 ## [1] 27 39 40 44
 ```
 
@@ -260,35 +276,35 @@ largest_cliques(graph1)
 
 ```
 ## [[1]]
-## + 3/100 vertices, from d204a7e:
+## + 3/100 vertices, from 234f8e6:
 ## [1] 92 82 63
 ## 
 ## [[2]]
-## + 3/100 vertices, from d204a7e:
+## + 3/100 vertices, from 234f8e6:
 ## [1] 92 82 51
 ## 
 ## [[3]]
-## + 3/100 vertices, from d204a7e:
+## + 3/100 vertices, from 234f8e6:
 ## [1] 85 61 69
 ## 
 ## [[4]]
-## + 3/100 vertices, from d204a7e:
+## + 3/100 vertices, from 234f8e6:
 ## [1] 85 61 60
 ## 
 ## [[5]]
-## + 3/100 vertices, from d204a7e:
+## + 3/100 vertices, from 234f8e6:
 ## [1] 84 32 73
 ## 
 ## [[6]]
-## + 3/100 vertices, from d204a7e:
+## + 3/100 vertices, from 234f8e6:
 ## [1] 80  6 66
 ## 
 ## [[7]]
-## + 3/100 vertices, from d204a7e:
+## + 3/100 vertices, from 234f8e6:
 ## [1] 76  6 72
 ## 
 ## [[8]]
-## + 3/100 vertices, from d204a7e:
+## + 3/100 vertices, from 234f8e6:
 ## [1] 59  5 36
 ```
 
@@ -320,7 +336,7 @@ Verificando o método de clustering pela remoção de pontes:
 show.cluster(graph1, cluster_edge_betweenness(graph1))
 ```
 
-![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-13-1.png)<!-- -->
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
 
 ```
 ## [1] "Número de clusters:" "15"                 
@@ -347,7 +363,7 @@ set.seed(42)
 show.cluster(graph1, cluster_label_prop(graph1))
 ```
 
-![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-14-1.png)<!-- -->
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
 
 ```
 ## [1] "Número de clusters:" "10"                 
@@ -375,7 +391,7 @@ Usando o método da otimização de modularidade:
 show.cluster(graph1, cluster_fast_greedy(graph1))
 ```
 
-![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-15-1.png)<!-- -->
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
 ```
 ## [1] "Número de clusters:" "14"                 
@@ -441,7 +457,7 @@ plot(graph(edge=c(1,2,1,3,2,3,3,4,3,5,4,5,5,6,5,7,6,7,7,8,7,9,8,9,2,4,4,6,6,8),d
      , main="Sub-rede conectada, de partida")
 ```
 
-![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-17-1.png)<!-- -->
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
 
 Na prática, a rede gerada pelo programa contém já os 100 nodos que se pretende utilizar, mas os restantes 91 não têm, na fase inicial, ainda qualquer ligação. Com a construção da rede aleatória eles serão iterativamente adicionados. Em cada iteração, ou seja, por cada um dos 91 nodos que serão adicionados à subrede conexa já existente, temos:
 
@@ -477,7 +493,7 @@ plot(rn2,  vertex.size=degrees*2, edge.color="orange4"
      )
 ```
 
-![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-19-1.png)<!-- -->
 
 
 ```r
@@ -588,15 +604,15 @@ min_cut(rn2, value.only = F)
 ## [1] 2
 ## 
 ## $cut
-## + 2/197 edges from d51af30:
+## + 2/197 edges from 2649d37:
 ## [1] 37--53 31--53
 ## 
 ## $partition1
-## + 1/100 vertex, from d51af30:
+## + 1/100 vertex, from 2649d37:
 ## [1] 53
 ## 
 ## $partition2
-## + 99/100 vertices, from d51af30:
+## + 99/100 vertices, from 2649d37:
 ##  [1]   1   2   3   4   5   6   7   8   9  10  11  12  13  14  15  16  17  18  19
 ## [20]  20  21  22  23  24  25  26  27  28  29  30  31  32  33  34  35  36  37  38
 ## [39]  39  40  41  42  43  44  45  46  47  48  49  50  51  52  54  55  56  57  58
@@ -637,303 +653,303 @@ largest_cliques(rn2)
 
 ```
 ## [[1]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 98 31 49
 ## 
 ## [[2]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 97 12 78
 ## 
 ## [[3]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 96 54 59
 ## 
 ## [[4]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 95  4 75
 ## 
 ## [[5]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 94 15 25
 ## 
 ## [[6]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 93  5 86
 ## 
 ## [[7]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 92 15 17
 ## 
 ## [[8]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 91 16 19
 ## 
 ## [[9]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 90  4  6
 ## 
 ## [[10]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 89 31 76
 ## 
 ## [[11]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 86  5  6
 ## 
 ## [[12]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 85 40 69
 ## 
 ## [[13]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 83 21 73
 ## 
 ## [[14]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 82 26 46
 ## 
 ## [[15]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 81  5 57
 ## 
 ## [[16]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 80  1 43
 ## 
 ## [[17]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 79 28 38
 ## 
 ## [[18]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 78 12 65
 ## 
 ## [[19]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 76 31 55
 ## 
 ## [[20]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 75  2  4
 ## 
 ## [[21]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 74  3 10
 ## 
 ## [[22]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 73 21 47
 ## 
 ## [[23]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 72 10 65
 ## 
 ## [[24]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 71 18 36
 ## 
 ## [[25]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 68 29 51
 ## 
 ## [[26]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 67  9 27
 ## 
 ## [[27]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 65 10 12
 ## 
 ## [[28]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 64 28 38
 ## 
 ## [[29]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 61 24 35
 ## 
 ## [[30]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 60 42 56
 ## 
 ## [[31]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 59 33 54
 ## 
 ## [[32]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 57  5  7
 ## 
 ## [[33]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 56 14 42
 ## 
 ## [[34]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 51  6 29
 ## 
 ## [[35]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 50  3 18
 ## 
 ## [[36]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 49 17 31
 ## 
 ## [[37]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 48 15 25
 ## 
 ## [[38]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 46 24 26
 ## 
 ## [[39]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 45 20 42
 ## 
 ## [[40]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 44 10 35
 ## 
 ## [[41]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 43  1 26
 ## 
 ## [[42]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 42 14 20
 ## 
 ## [[43]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 41 29 37
 ## 
 ## [[44]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 40  1 26
 ## 
 ## [[45]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 39  3  4
 ## 
 ## [[46]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 38  2 28
 ## 
 ## [[47]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 37  6 29
 ## 
 ## [[48]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 36  3 18
 ## 
 ## [[49]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 35 10 24
 ## 
 ## [[50]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 34  6  7
 ## 
 ## [[51]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 29  5  6
 ## 
 ## [[52]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 28  2 15
 ## 
 ## [[53]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 27  9 16
 ## 
 ## [[54]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 26  1 24
 ## 
 ## [[55]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 23 11 13
 ## 
 ## [[56]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 22  1  3
 ## 
 ## [[57]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 21 14 20
 ## 
 ## [[58]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 19  9 16
 ## 
 ## [[59]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 18  2  3
 ## 
 ## [[60]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 16  7  9
 ## 
 ## [[61]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1]  8 87 14
 ## 
 ## [[62]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1]  8 66 14
 ## 
 ## [[63]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1]  8 62 12
 ## 
 ## [[64]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1]  8 14 12
 ## 
 ## [[65]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1]  8 13 11
 ## 
 ## [[66]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1]  8 12 10
 ## 
 ## [[67]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1]  8 11  9
 ## 
 ## [[68]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1]  8  7 33
 ## 
 ## [[69]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 8 7 9
 ## 
 ## [[70]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 8 7 6
 ## 
 ## [[71]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 5 7 6
 ## 
 ## [[72]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 5 4 6
 ## 
 ## [[73]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 5 4 3
 ## 
 ## [[74]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 4 2 3
 ## 
 ## [[75]]
-## + 3/100 vertices, from d51af30:
+## + 3/100 vertices, from 2649d37:
 ## [1] 3 1 2
 ```
 
@@ -944,7 +960,7 @@ Verificando o método da remoção de pontes:
 show.cluster(rn2, cluster_edge_betweenness(rn2))
 ```
 
-![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-30-1.png)<!-- -->
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
 
 ```
 ## [1] "Número de clusters:" "9"                  
@@ -970,7 +986,7 @@ set.seed(42)
 show.cluster(rn2, cluster_label_prop(rn2))
 ```
 
-![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-31-1.png)<!-- -->
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-32-1.png)<!-- -->
 
 ```
 ## [1] "Número de clusters:" "9"                  
@@ -997,7 +1013,7 @@ Usando o método da otimização de modularidade:
 show.cluster(rn2, cluster_fast_greedy(rn2))
 ```
 
-![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-32-1.png)<!-- -->
+![](AR-TrabalhoGrupo2-Catarina-Joao-Joel_files/figure-html/unnamed-chunk-33-1.png)<!-- -->
 
 ```
 ## [1] "Número de clusters:" "9"                  
